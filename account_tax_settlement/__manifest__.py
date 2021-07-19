@@ -1,10 +1,10 @@
 {
     'name': 'Tax Settlement',
-    'version': '13.0.1.1.0',
+    'version': '14.0.1.0.0',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA',
+    'author': 'ADHOC SA, QUILSOFT',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
