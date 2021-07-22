@@ -19,11 +19,11 @@
 ##############################################################################
 {
     'name': 'More demo data for Argentina Localization (Enterprise version)',
-    'version': '13.0.1.0.0',
+    'version': '14.0.1.0.0',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA',
+    'author': 'ADHOC SA, QUILSOFT',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
@@ -44,7 +44,7 @@
     ],
     'test': [
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
     'application': False,
     'pre_init_hook': '_load_l10n_ar_demo_data'
