@@ -24,7 +24,7 @@
     'sequence': 14,
     'summary': '',
     'author': 'ADHOC SA, QUILSOFT',
-    'website': 'www.adhoc.com.ar',
+    'website': 'www.quilsoft.com',
     'license': 'AGPL-3',
     'images': [
     ],

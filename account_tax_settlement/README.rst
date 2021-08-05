@@ -1,12 +1,12 @@
-.. |company| replace:: ADHOC SA
+.. |company| replace:: Q SOLUTIONS SA
 
-.. |company_logo| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png
-   :alt: ADHOC SA
-   :target: https://www.adhoc.com.ar
+.. |company_logo| image:: https://i.im.ge/2021/08/06/h7jo4.jpg
+   :alt: Q SOLUTIONS SA
+   :target: https://www.quilsoft.com
 
-.. |icon| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-icon.png
+.. |icon| image:: https://i.im.ge/2021/08/06/h7xZW.jpg
 
-.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. image:: https://raster.shields.io/badge/license-AGPL--3-orange.png
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
@@ -45,12 +45,6 @@ Usage
 
 To use this module, you need to:
 
-#. Go to ...
-
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: http://runbot.adhoc.com.ar/
-
 Credits
 =======
 
@@ -69,4 +63,4 @@ Maintainer
 
 This module is maintained by the |company|.
 
-To contribute to this module, please visit https://www.adhoc.com.ar.
+To contribute to this module, please visit https://github.com/quilsoft-org/odoo-argentina-ee/wiki

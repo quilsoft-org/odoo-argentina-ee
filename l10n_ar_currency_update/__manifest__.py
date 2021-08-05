@@ -23,7 +23,7 @@
     'category': 'Localization/Argentina',
     'sequence': 14,
     'author': 'ADHOC SA,Odoo Community Association (OCA), QUILSOFT',
-    'website': 'www.adhoc.com.ar',
+    'website': 'www.quilsoft.com',
     'license': 'AGPL-3',
     'summary': '',
     'depends': [

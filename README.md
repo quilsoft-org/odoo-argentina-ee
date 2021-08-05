@@ -1,14 +1,14 @@
-[![Coverage Status](https://coveralls.io/repos/ingadhoc/odoo-argentina-ee/badge.png?branch=13.0)](https://coveralls.io/r/ingadhoc/odoo-argentina-ee?branch=13.0)
-[![Code Climate](https://codeclimate.com/github/ingadhoc/odoo-argentina-ee/badges/gpa.svg)](https://codeclimate.com/github/ingadhoc/odoo-argentina-ee)
+[![Coverage Status](https://coveralls.io/repos/quilsoft-org/odoo-argentina-ee/badge.png?branch=14.0)](https://coveralls.io/r/quilsoft-org/odoo-argentina-ee?branch=14.0)
 
-# ADHOC odoo-argentina enterprise addons
+# QUILSOFT odoo-argentina enterprise addons
 
-ADHOC Odoo odoo-argentina Modules
+QUILSOFT Odoo odoo-argentina Modules
 
 [//]: # (addons)
 [//]: # (end addons)
 
 ----
 
-<img alt="ADHOC" src="http://fotos.subefotos.com/83fed853c1e15a8023b86b2b22d6145bo.png" />
-**Adhoc SA** - www.adhoc.com.ar
+<img alt="QUILSOFT" src="https://i.im.ge/2021/08/06/h7jo4.jpg" />
+
+**Q SOLUTIONS SA** - www.quilsoft.com
