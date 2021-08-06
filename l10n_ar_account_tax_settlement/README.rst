@@ -1,7 +1,7 @@
-.. |company| replace:: Q SOLUTIONS SA
+.. |company| replace:: QUILSOFT
 
 .. |company_logo| image:: https://i.im.ge/2021/08/06/h7jo4.jpg
-   :alt: Q SOLUTIONS SA
+   :alt: QUILSOFT
    :target: https://www.quilsoft.com
 
 .. |icon| image:: https://i.im.ge/2021/08/06/h7xZW.jpg
@@ -69,6 +69,6 @@ Maintainer
 
 |company_logo|
 
-This module is maintained by the |company|.
+This module is maintained by |company|.
 
 To contribute to this module, please visit https://github.com/quilsoft-org/odoo-argentina-ee/wiki

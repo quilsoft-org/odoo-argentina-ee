@@ -11,4 +11,4 @@ QUILSOFT Odoo odoo-argentina Modules
 
 <img alt="QUILSOFT" src="https://i.im.ge/2021/08/06/h7jo4.jpg" />
 
-**Q SOLUTIONS SA** - www.quilsoft.com
+**QUILSOFT** - www.quilsoft.com
