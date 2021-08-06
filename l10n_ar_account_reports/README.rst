@@ -1,12 +1,12 @@
-.. |company| replace:: ADHOC SA
+.. |company| replace:: Q SOLUTIONS SA
 
-.. |company_logo| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-logo.png
-   :alt: ADHOC SA
-   :target: https://www.adhoc.com.ar
+.. |company_logo| image:: https://i.im.ge/2021/08/06/h7jo4.jpg
+   :alt: Q SOLUTIONS SA
+   :target: https://www.quilsoft.com
 
-.. |icon| image:: https://raw.githubusercontent.com/ingadhoc/maintainer-tools/master/resources/adhoc-icon.png
+.. |icon| image:: https://i.im.ge/2021/08/06/h7xZW.jpg
 
-.. image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. image:: https://raster.shields.io/badge/license-AGPL--3-orange.png
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
@@ -47,7 +47,7 @@ Credits
 Images
 ------
 
-* |company| |icon|
+* |company|
 
 Contributors
 ------------

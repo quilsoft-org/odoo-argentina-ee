@@ -59,7 +59,7 @@ Credits
 Images
 ------
 
-* |company| |icon|
+* |company|
 
 Contributors
 ------------
