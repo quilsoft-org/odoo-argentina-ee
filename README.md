@@ -3,7 +3,7 @@
 
 # ADHOC odoo-argentina enterprise addons
 
-ADHOC Odoo odoo-argentina Modules
+ADHOC Odoo odoo-argentina Modules.
 
 [//]: # (addons)
 [//]: # (end addons)
