@@ -32,18 +32,16 @@
         'account_reports',
         'l10n_ar',
         'account_check',
-        'report_aeroo',
     ],
     'data': [
         'views/account_journal_dashboard_view.xml',
         'wizards/checks_to_date_view.xml',
-        'reports/account_checks_to_date_report.xml',
     ],
     'demo': [
     ],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': True,
     'application': False,
 }
