@@ -13,8 +13,10 @@ class AccountJournal(models.Model):
         string='Caea journal',
     )
     
-    use_for_caea = fields.Boolean(
-        string='Use for caea',
-    )
 
 
+    def _get_l10n_ar_afip_pos_types_selection(self):
+        """ Add more options to the selection field AFIP POS System, re order options by common use """
+        res = super()._get_l10n_ar_afip_pos_types_selection()
+        res.append(('CAEA', _('Electronic Invoice CAEA - Advance electronic authorization code')))
+        return res
