@@ -1,0 +1,60 @@
+<odoo>
+    <data>
+        <record id="afipws_caea_tree" model="ir.ui.view">
+            <field name="name">afipws_caea.tree</field>
+            <field name="model">l10n_ar.afipws.caea</field>
+            <field name="arch" type="xml">
+                <tree string="caea">
+                    <field name="name"/>
+                    <field name="month" optional="true"/>
+                    <field name="year" optional="true"/>
+                    <field name="order" optional="true"/>
+                    <field name="date_from" optional="hide"/>
+                    <field name="date_to" optional="hide"/>
+                    <field groups="base.group_multi_company" name="company_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="afipws_form" model="ir.ui.view">
+            <field name="name">afipws.form</field>
+            <field name="model">l10n_ar.afipws.caea</field>
+            <field name="arch" type="xml">
+                <form string="description">
+                    <header>
+                        <button name="action_request_caea" string="Request CAEA" type="object"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" attrs="{'readonly': True}"/>
+                        </h1>
+                        <group col="6">
+                            <field name="month" attrs="{'readonly':[('name','!=','/')]}"/>
+                            <field name="year" attrs="{'readonly':[('name','!=','/')]}"/>
+                            <field name="order" attrs="{'readonly':[('name','!=','/')]}"/>
+                        </group>
+                        <group>
+                            <field attrs="{'invisible':True}" name="period"/>
+                            <field groups="base.group_multi_company" name="company_id"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="move_ids" attrs="{'readonly':True}">
+                                <tree string="invoices">
+                                    <field invisible="True" name="id"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_caea" model="ir.actions.act_window">
+            <field name="name">CAEA</field>
+            <field name="res_model">l10n_ar.afipws.caea</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem action="action_caea" id="caea_menu" name="CAEA" parent="l10n_ar.menu_afip_config"/>
+    </data>
+</odoo>
