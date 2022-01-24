@@ -13,8 +13,6 @@ class AccountJournal(models.Model):
         string='Caea journal',
     )
     
-
-
     def _get_l10n_ar_afip_pos_types_selection(self):
         """ Add more options to the selection field AFIP POS System, re order options by common use """
         res = super()._get_l10n_ar_afip_pos_types_selection()

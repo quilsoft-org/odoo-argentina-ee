@@ -1,22 +1,33 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, RedirectWarning
 import logging
 _logger = logging.getLogger(__name__)
+
+# Pagina 118
+# https://www.afip.gob.ar/fe/ayuda//documentos/Manual-desarrollador-V.2.21.pdf
 
 
 class L10nArAfipwsCaea(models.Model):
     _name = 'l10n_ar.afipws.caea'
     _description = 'Caea registry'
     _order = "date_from desc"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
     _sql_constraints = [
         ('unique_caea', 'unique (company_id,name)', 'CAEA already exists!'),
         ('unique_caea', 'unique (company_id,period, order)',
          'CAEA request already exists!')
     ]
 
+    state = fields.Selection(
+        [('draft', 'draft'), ('active', 'active'), ('reported', 'reported')],
+        string='State',
+        default='draft'
+    )
     name = fields.Char(
         string='CAEA',
         default='/'
@@ -77,11 +88,22 @@ class L10nArAfipwsCaea(models.Model):
         compute="_compute_date",
         store=True,
     )
+    process_deadline = fields.Date(
+        string='process deadline'
+    )
+
     move_ids = fields.One2many(
         'account.move',
         'caea_id',
         string='Moves',
     )
+    journal_ids = fields.Many2many(
+        'account.journal',
+        string='Autorized CAEA journals',
+    )
+
+    def get_afip_ws(self):
+        return 'wsfe'
 
     @api.onchange('month', 'year')
     def _onchange_month_year(self):
@@ -105,11 +127,20 @@ class L10nArAfipwsCaea(models.Model):
 
     def action_request_caea(self):
         self.ensure_one()
+        afip_ws = self.get_afip_ws()
+
         client, auth, transport = self.company_id._l10n_ar_get_connection(
-            'wsfe')._get_client(return_transport=True)
-        caea = self._l10n_ar_do_afip_ws_request_caea(client, auth, transport)
-        self.name = caea['CAEA']
-        self.afip_observations = caea['Observaciones']
+            afip_ws)._get_client(return_transport=True)
+        result = self._l10n_ar_do_afip_ws_request_caea(client, auth, transport)
+        self.name = result['CAEA']
+        self.process_deadline = datetime.strptime(
+            result['FchTopeInf'], '%Y%m%d')
+        if result.Observaciones:
+            return_info = ''.join(['\n* Code %s: %s' % (ob.Code, ob.Msg)
+                                   for ob in result.Observaciones.Obs])
+            self.message_post(
+                body='<p><b>' + _('AFIP Messages') + '</b></p><p><i>%s</i></p>' % (return_info))
+        self.state = 'active'
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -120,6 +151,7 @@ class L10nArAfipwsCaea(models.Model):
 
         for afipws_caea in res:
             afipws_caea.action_request_caea()
+            afipws_caea.action_get_caea_pos()
         return res
 
     def write(self, vals):
@@ -150,29 +182,189 @@ class L10nArAfipwsCaea(models.Model):
 
         return response['ResultGet']
 
+    def report_no_invoices(self):
+        self.ensure_one()
+        afip_ws = self.get_afip_ws()
+        connection = self.company_id._l10n_ar_get_connection(afip_ws)
+        client, auth = connection._get_client()
+        if afip_ws == 'wsfe':
+            # Update actives Journals
+            self.action_get_caea_pos()
+            journal_ids = self.env['account.move'].search([
+                ('journal_id', 'in', self.journal_ids.ids),
+                ('caea_post_datetime', '>=', self.date_from),
+                ('caea_post_datetime', '<=', self.date_to),
+            ]).mapped('journal_id')
+
+            no_invoices_journal_ids = self.journal_ids - journal_ids
+            ws_method = 'FECAEASinMovimientoInformar'
+
+            return_info = ''
+            for report_journal in no_invoices_journal_ids:
+                request_data = {
+                    'PtoVta': report_journal.l10n_ar_afip_pos_number, 'CAEA': self.name}
+                try:
+                    client.create_message(client.service, ws_method,
+                                          auth, request_data
+                                          )
+                except Exception as error:
+                    raise UserError(repr(error))
+
+                response = client.service[ws_method](
+                    auth, PtoVta=report_journal.l10n_ar_afip_pos_number, CAEA=self.name
+                )
+                if response.Resultado == 'A':
+                    return_info += "<p><strong>POS %s</strong> %s</p>" % (
+                        report_journal.l10n_ar_afip_pos_number,
+                        _('Reported with no invoices successful')
+                    )
+                else:
+                    return_info += "<p><strong>POS %s</strong> %s</p>" % (
+                        report_journal.l10n_ar_afip_pos_number,
+                        _('Error cant reported with no invoices')
+                    )
+                if response.Errors:
+                    return_info += ''.join(
+                        ['\n* Code %s: %s' % (err.Code, err.Msg) for err in response.Errors.Err])
+
+                if response.Events:
+                    return_info += ''.join(
+                        ['\n* Code %s: %s' % (evt.Code, evt.Msg) for evt in response.Events.Evt])
+
+            self.message_post(
+                body='<p><b>' + _('AFIP Messages') + '</b></p><p><i>%s</i></p>' % (return_info))
+            self.state = 'reported'
+
+        else:
+            raise UserError(
+                _('"Check Available AFIP PoS" is not implemented for webservice %s', self.l10n_ar_afip_ws))
+
+    def action_get_caea_pos(self):
+        self.ensure_one()
+        afip_ws = self.get_afip_ws()
+        connection = self.company_id._l10n_ar_get_connection(afip_ws)
+        client, auth = connection._get_client()
+        if afip_ws == 'wsfe':
+            response = client.service.FEParamGetPtosVenta(auth)
+            if response.ResultGet:
+                for pdv in response.ResultGet.PtoVenta:
+                    pos_numbers = []
+                    if pdv.EmisionTipo.startswith('CAE') and pdv.Bloqueado == 'N':
+                        pos_numbers.append(int(pdv['Nro']))
+                    journal_ids = self.env['account.journal'].search(
+                        [('l10n_ar_afip_pos_number', 'in', pos_numbers)])
+                    self.journal_ids = [(6, 0, journal_ids.ids)]
+        else:
+            raise UserError(
+                _('"Check Available AFIP PoS" is not implemented for webservice %s', self.l10n_ar_afip_ws))
+
     def _get_client(self, return_transport=False):
         if return_transport:
             return False, False, False
         return False, False
 
+    def _ws_verify_request_data(self, client, auth, ws_method, request_data):
+        """ Validate that all the request data sent is ok """
+        try:
+            client.create_message(
+                client.service, ws_method, auth, request_data)
+        except Exception as error:
+            raise UserError(repr(error))
 
-    # informar caea
-    # FECAEARegInformativo
+    def _l10n_ar_do_afip_ws_report_invoice(self, move_ids, client, auth, transport):
+        self.ensure_one()
+        afip_ws = self.get_afip_ws()
+        for inv in move_ids:
+            if afip_ws == 'wsfe':
+                ws_method = 'FECAEARegInformativo'
+                return_codes = []
+                errors = ''
+                events = ''
+                obs = ''
+                request_data = inv.wsfe_get_caea_request(self.name, client)
+                self._ws_verify_request_data(
+                    client, auth, ws_method, request_data)
+                response = client.service[ws_method](auth, request_data)
+                _logger.info(transport.xml_response)
+                _logger.info(transport.xml_request)
+                if response.FeDetResp:
+                    result = response.FeDetResp.FECAEADetResponse[0]
+                    if result.Observaciones:
+                        obs = ''.join(['\n* Code %s: %s' % (ob.Code, ob.Msg)
+                                       for ob in result.Observaciones.Obs])
+                        return_codes += [str(ob.Code)
+                                         for ob in result.Observaciones.Obs]
+                    if result.Resultado == 'A':
+                        values = {'l10n_ar_afip_auth_mode': 'CAEA',
+                                  'l10n_ar_afip_caea_reported': True,
+                                  'l10n_ar_afip_auth_code': result.CAEA and str(result.CAEA) or "",
+                                  'l10n_ar_afip_result': result.Resultado}
 
-    """def send_caea_invoices(self):
+                    if result.Resultado == 'R':
+                        values = {'l10n_ar_afip_result': result.Resultado}
+                if response.Errors:
+                    errors = ''.join(
+                        ['\n* Code %s: %s' % (err.Code, err.Msg) for err in response.Errors.Err])
+                    return_codes += [str(err.Code)
+                                     for err in response.Errors.Err]
+                if response.Events:
+                    events = ''.join(
+                        ['\n* Code %s: %s' % (evt.Code, evt.Msg) for evt in response.Events.Evt])
+                    return_codes += [str(evt.Code)
+                                     for evt in response.Events.Evt]
+
+            return_info = inv._prepare_return_msg(
+                afip_ws, errors, obs, events, return_codes)
+            afip_result = values.get('l10n_ar_afip_result')
+            xml_response, xml_request = transport.xml_response, transport.xml_request
+
+            if afip_result not in ['A', 'O']:
+                if not self.env.context.get('l10n_ar_invoice_skip_commit'):
+                    self.env.cr.rollback()
+                if inv.exists():
+                    # Only save the xml_request/xml_response fields if the invoice exists.
+                    # It is possible that the invoice will rollback as well e.g. when it is automatically created when:
+                    #   * creating credit note with full reconcile option
+                    #   * creating/validating an invoice from subscription/sales
+                    inv.sudo().write({
+                        'l10n_ar_afip_xml_request': xml_request,
+                        'l10n_ar_afip_xml_response': xml_response
+                    })
+                    if not self.env.context.get('l10n_ar_invoice_skip_commit'):
+                        self.env.cr.commit()
+                    if return_info:
+                        inv.message_post(
+                            body='<p><b>' + _('AFIP Messages') + '</b></p><p><i>%s</i></p>' % (return_info))
+
+                return return_info
+            values.update(l10n_ar_afip_xml_request=xml_request,
+                          l10n_ar_afip_xml_response=xml_response)
+            inv.sudo().write(values)
+            if return_info:
+                inv.message_post(body='<p><b>' + _('AFIP Messages') +
+                                 '</b></p><p><i>%s</i></p>' % (return_info))
+            return return_info
+
+    def action_send_invoices(self):
         self.env['ir.config_parameter'].set_param(
             'afip.ws.caea.state', 'inactive')
 
-        move_ids = self.env['account.move'].search([
-            ('afip_auth_mode', '=', 'CAEA'),
-            ('afip_auth_code', '=', self.afip_caea)
-        ], order='name asc')
-        out_invoice = move_ids.filtered(lambda i: i.type in ['out_invoice'])
-        out_refund = move_ids.filtered(lambda i: i.type in ['out_refund'])
-        for inv in out_invoice:
-            inv.do_pyafipws_request_cae()
-        for inv in out_refund:
-            inv.do_pyafipws_request_cae()
+        move_ids = self.move_ids.filtered(
+            lambda m: m.l10n_ar_afip_caea_reported is False)
+
+        afip_ws = self.get_afip_ws()
+        return_info_all = []
+        for inv in move_ids:
+            client, auth, transport = inv.company_id._l10n_ar_get_connection(
+                afip_ws)._get_client(return_transport=True)
+            return_info = self._l10n_ar_do_afip_ws_report_invoice(
+                inv, client, auth, transport)
+            if return_info and len(return_info):
+
+                return_info_all.append("<strong>%s</strong> %s" % (inv.name, return_info))
+        if len(return_info_all):
+            self.message_post(body='<p><b>' + _('AFIP Messages') +
+                              '</b></p><p><ul><li>%s</li></ul></p>' % ('</li><li>'.join(return_info_all)))
 
     def cron_request_caea(self):
         request_date = fields.Date.today() + relativedelta(days=7)
@@ -212,7 +404,7 @@ class L10nArAfipwsCaea(models.Model):
                 self.env['afipws.caea.log'].create([
                     {'event': 'end_caea', 'user_id': self.env.user.id}
                 ])
-
+    """
     def cron_send_caea_invoices(self):
 
         self.env['ir.config_parameter'].set_param(

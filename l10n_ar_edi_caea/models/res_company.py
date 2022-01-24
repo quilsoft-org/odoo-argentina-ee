@@ -19,8 +19,9 @@ class ResCompany(models.Model):
 
     def _l10n_ar_get_connection(self, afip_ws):
         caea_state = self.env['ir.config_parameter'].sudo().get_param(
-            'afip.ws.caea.state', 'inactive')
-        if caea_state == 'active':
+            'afip.ws.caea.state', 'inactive')        
+        if caea_state == 'active' and 'ignore_active_caea' not in self.env.context:
             return self.get_active_caea()
+
         return super()._l10n_ar_get_connection(afip_ws)
 

@@ -26,6 +26,8 @@
                                 <button attrs="{'invisible':[('afip_ws_caea_state','!=','active')]}" name="afip_green_button" string="Stop CAEA" style="background:#378805;color:#FFF;   " type="object"/>
                                 <button attrs="{'invisible':[('afip_ws_caea_state','!=','inactive')]}" name="afip_red_button" string="Active CAEA" style="background:#FF0000;color:#FFF;   " type="object"/>
                                 <button class="btn-link" icon="fa-arrow-right" name="%(l10n_ar_edi_caea.action_caea)d" string="List CAEA" type="action"/>
+                                <button class="btn-link" icon="fa-arrow-right" name="%(l10n_ar_edi_caea.action_afipws_dummy)d" string="Check WS state" type="action"/>
+
                             </div>
                         </div>
                     </div>

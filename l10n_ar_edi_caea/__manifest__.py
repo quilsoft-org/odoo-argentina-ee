@@ -20,7 +20,14 @@
 
     'data': [
         'views/afipws_caea.xml',
-        'views/res_config_settings.xml',
         'views/account_journal.xml',
+        'views/account_move_view.xml',
+        'wizards/l10n_ar_afipws_dummy.xml',
+        'views/res_config_settings.xml',
+        'views/asset.xml',
     ],
+    'qweb': [
+        'static/src/xml/systray_afip_caea.xml',
+    ],
+
 }
