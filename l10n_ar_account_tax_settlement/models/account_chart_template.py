@@ -65,15 +65,13 @@ class AccountChartTemplate(models.Model):
                     # ref('l10n_ar_ux_reports.'
                     #     'account_financial_report_profits_position'),
                     ref('l10n_ar.partner_afip'),
-                    get_account('base_saldo_favor_ganancias'),
                     get_account('base_impuesto_ganancias_a_pagar'),
                     ref('l10n_ar_ux.tax_tag_a_cuenta_ganancias')),
                 # only if account_withholding_automatic installed we
                 # set sicore_aplicado for txt
                 ('Liquidación SICORE Aplicado', 'SICORE', 'allow_per_line',
-                    account_withholding_automatic and 'sicore_aplicado',
+                    account_withholding_automatic and 'sicore_aplicado' or False,
                     ref('l10n_ar.partner_afip'),
-                    get_account('ri_retencion_sicore_a_pagar'),
                     get_account('ri_retencion_sicore_a_pagar'),
                     ref('l10n_ar_ux.tag_ret_perc_sicore_aplicada')),
                 ('Liquidación IIBB Aplicado', 'IB_AP', 'allow_per_line',
@@ -81,15 +79,13 @@ class AccountChartTemplate(models.Model):
                     ref('l10n_ar.par_iibb_pagar'),
                     # TODO flatan crear estas cuentas!
                     get_account('ri_retencion_iibb_a_pagar'),
-                    get_account('ri_retencion_iibb_a_pagar'),
                     ref('l10n_ar_ux.tag_ret_perc_iibb_aplicada')),
             ]
 
         # for name, code, tax, report, partner, credit_id, debit_id, tag \
-        for name, code, type, tax, partner, credit_id, debit_id, tag \
-                in journals:
-            if not credit_id or debit_id:
-                _logger.info("Skip creation of journal %s because we didn't found debit/credit account")
+        for name, code, type, tax, partner, account, tag in journals:
+            if not account:
+                _logger.info("Skip creation of journal %s because we didn't found default account")
                 continue
             # journal_data.append({
             self.env['account.journal'].create({
@@ -100,8 +96,7 @@ class AccountChartTemplate(models.Model):
                 'settlement_tax': tax,
                 # 'settlement_financial_report_id': report and report.id,
                 'settlement_partner_id': partner and partner.id,
-                'default_credit_account_id': credit_id,
-                'default_debit_account_id': debit_id,
+                'default_account_id': account.id,
                 'company_id': company.id,
                 # al final hicimos otro dashboard
                 'show_on_dashboard': False,
