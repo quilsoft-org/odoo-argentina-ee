@@ -15,6 +15,7 @@ class ResCompany(models.Model):
             ('company_id', '=', self.id),
             ('date_from', '<=', today),
             ('date_to', '>=', today),
+            ('state', '=', 'active')
         ], limit=1)
 
     def _l10n_ar_get_connection(self, afip_ws):
