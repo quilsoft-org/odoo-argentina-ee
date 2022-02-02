@@ -7,7 +7,6 @@
     'sequence': 14,
     'author': 'Quilsoft',
 
-
     'summary': """Habilita la gestion de CAEA en las facturas""",
 
     'description': """
