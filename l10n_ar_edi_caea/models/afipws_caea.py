@@ -110,7 +110,7 @@ class L10nArAfipwsCaea(models.Model):
         if self.year and self.month:
             self.period = str(self.year) + self.month
 
-    @api.depends('month', 'year')
+    @api.depends('month', 'year', 'order')
     def _compute_date(self):
         for caea in self:
             if caea.year and caea.month:
@@ -119,7 +119,7 @@ class L10nArAfipwsCaea(models.Model):
                         "%s-%s-01" % (caea.year, caea.month))
                     caea.date_to = fields.Date.from_string(
                         "%s-%s-15" % (caea.year, caea.month))
-                else:
+                elif caea.order == '2':
                     caea.date_from = fields.Date.from_string(
                         "%s-%s-16" % (caea.year, caea.month))
                     caea.date_to = fields.Date.from_string(
