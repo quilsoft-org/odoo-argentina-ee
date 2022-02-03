@@ -13,6 +13,9 @@
                     {'invisible':[('l10n_ar_afip_ws', '=', False), ('l10n_ar_afip_pos_system', '!=', 'CAEA')]}
                 </attribute>
             </xpath>
+            <xpath expr="//page[@name='afip']/group/field[@name='l10n_ar_afip_xml_response']" position="before">
+                <field groups="base.group_no_one" name="caea_post_datetime"/>
+            </xpath>
         </field>
     </record>
 </odoo>
