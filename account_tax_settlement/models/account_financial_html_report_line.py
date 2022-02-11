@@ -1,3 +1,4 @@
+import ast
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
@@ -43,6 +44,7 @@ class AccountFinancialReport(models.Model):
         # obtener domain, usar directamente el "_compute_line" o el "_get_sum"
         # pero deberiamos luego cambiar la logica del grouped move lines
         # o en realidad estariamos repidiento casi dos veces lo mismo
+
         domains = []
         for line in revert_lines:
             domains.append(line.report_move_lines_action()['domain'])
@@ -117,3 +119,22 @@ class AccountFinancialReportLine(models.Model):
         help='Si se eligió "Nuevo Apunte Contable", para la nueva línea, '
         'Se va a buscar una cuenta con esta etiqueta de cuenta',
     )
+
+    ## Agregado para el reporte de refundicion
+    def report_move_lines_action(self):
+        domain = ast.literal_eval(self.domain)
+        if 'date_from' in self.env.context.get('context', {}):
+            if self.env.context['context'].get('date_from'):
+                domain = expression.AND([domain, [('date', '>=', self.env.context['context']['date_from'])]])
+            if self.env.context['context'].get('date_to'):
+                domain = expression.AND([domain, [('date', '<=', self.env.context['context']['date_to'])]])
+            if self.env.context['context'].get('state', 'all') == 'posted':
+                domain = expression.AND([domain, [('move_id.state', '=', 'posted')]])
+            if self.env.context['context'].get('company_ids'):
+                domain = expression.AND([domain, [('company_id', 'in', self.env.context['context']['company_ids'])]])
+        return {'type': 'ir.actions.act_window',
+                'name': 'Journal Items (%s)' % self.name,
+                'res_model': 'account.move.line',
+                'view_mode': 'tree,form',
+                'domain': domain,
+                }
