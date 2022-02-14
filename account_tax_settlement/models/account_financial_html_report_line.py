@@ -2,6 +2,18 @@ import ast
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
 from odoo.osv import expression
+from odoo.tools.safe_eval import safe_eval
+
+
+class FormulaContext(dict):
+    def __init__(self, reportLineObj, linesDict, currency_table, financial_report, curObj=None, only_sum=False, *data):
+        self.reportLineObj = reportLineObj
+        self.curObj = curObj
+        self.linesDict = linesDict
+        self.currency_table = currency_table
+        self.only_sum = only_sum
+        self.financial_report = financial_report
+        return super(FormulaContext, self).__init__(data)
 
 
 class AccountFinancialReport(models.Model):
@@ -74,6 +86,9 @@ class AccountFinancialReport(models.Model):
                     new_line.settement_account_tag_id.name,
                     new_line.settement_account_tag_id.id,
                     journal.company_id.name))
+
+            # import wdb;wdb.set_trace()
+
             balance = sum(
                 [x['balance'] for x in new_line._get_balance(
                     {}, {}, self, field_names=['balance'])])
@@ -120,7 +135,7 @@ class AccountFinancialReportLine(models.Model):
         'Se va a buscar una cuenta con esta etiqueta de cuenta',
     )
 
-    ## Agregado para el reporte de refundicion
+    ## Agregado en la migracion V15 para el reporte de refundicion
     def report_move_lines_action(self):
         domain = ast.literal_eval(self.domain)
         if 'date_from' in self.env.context.get('context', {}):
@@ -138,3 +153,34 @@ class AccountFinancialReportLine(models.Model):
                 'view_mode': 'tree,form',
                 'domain': domain,
                 }
+
+    ## Agregado en la migracion V15 para el reporte de refundicion
+    def _get_balance(self, linesDict, currency_table, financial_report, field_names=None):
+        results = []
+
+        if not field_names:
+            field_names = ['debit', 'credit', 'balance']
+
+        # en 15 las formulas ya no son como antes viene el rec.code y el rec.formulas
+        # en registros separados tampoco estan los campos debit, credit y balance
+        # 
+
+        for rec in self:
+            res = dict((fn, 0.0) for fn in field_names)
+            c = FormulaContext(self.env['account.financial.html.report.line'],
+                    linesDict, currency_table, financial_report, rec)
+            if rec.formulas:
+                for f in rec.formulas.split(';'):
+                    #[field, formula] = f.split('=')
+                    formula = f
+                    field = rec.code.strip()
+                    if field in field_names:
+                        try:
+                            res[field] = safe_eval(formula, c, nocopy=True)
+                        except ValueError as err:
+                            if 'division by zero' in err.args[0]:
+                                res[field] = 0
+                            else:
+                                raise err
+            results.append(res)
+        return results
