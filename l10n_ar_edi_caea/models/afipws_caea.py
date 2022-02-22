@@ -287,8 +287,6 @@ class L10nArAfipwsCaea(models.Model):
                 self._ws_verify_request_data(
                     client, auth, ws_method, request_data)
                 response = client.service[ws_method](auth, request_data)
-                _logger.info(transport.xml_response)
-                _logger.info(transport.xml_request)
                 if response.FeDetResp:
                     result = response.FeDetResp.FECAEADetResponse[0]
                     if result.Observaciones:
@@ -356,7 +354,7 @@ class L10nArAfipwsCaea(models.Model):
 
         afip_ws = self.get_afip_ws()
         return_info_all = []
-        for inv in move_ids:
+        for inv in move_ids.sorted(key=lambda r: r.caea_post_datetime):
             client, auth, transport = inv.company_id._l10n_ar_get_connection(
                 afip_ws)._get_client(return_transport=True)
             return_info = self._l10n_ar_do_afip_ws_report_invoice(
@@ -406,16 +404,16 @@ class L10nArAfipwsCaea(models.Model):
                 self.env['afipws.caea.log'].create([
                     {'event': 'end_caea', 'user_id': self.env.user.id}
                 ])
-    """
+    
     def cron_send_caea_invoices(self):
 
-        self.env['ir.config_parameter'].set_param(
-            'afip.ws.caea.state', 'inactive')
         caea_ids = self.search([
             ('date_from', '<=',  fields.Date.today() + relativedelta(days=1)),
-            ('date_to', '>=',  fields.Date.today() + relativedelta(days=1))
+            ('date_to', '>=',  fields.Date.today() + relativedelta(days=1)),
+            ('state', '=', 'active')
         ])
-        caea_ids.send_caea_invoices()"""
+        for caea_id in caea_ids:
+            caea_id.action_send_invoices()
 
 
 class L10nArAfipwsCaeaLog(models.Model):

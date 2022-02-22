@@ -5,7 +5,7 @@ class ResCompany(models.Model):
     _inherit = 'res.company'
 
     use_caea = fields.Boolean(
-        string='Request Caea autorization',
+        string='Allow contingency billing',
     )
 
     def get_active_caea(self):

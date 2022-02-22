@@ -6,14 +6,14 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     afip_ws_caea_state = fields.Selection(
-        [('inactive', 'Use WS'), ('active', 'Use CAEA'),
+        [('inactive', 'Using WS'), ('active', 'In contingency mode'),
          ('syncro', 'In AFIP syncro')],
         string='AFIP enviroment method',
         config_parameter='afip.ws.caea.state',
         default='inactive'
     )
     afip_ws_caea_timeout = fields.Float(
-        string='Caea timeout',
+        string='Contingency timeout',
         config_parameter='afip.ws.caea.timeout',
         default=2
     )

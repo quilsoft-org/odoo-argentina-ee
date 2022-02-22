@@ -27,7 +27,7 @@ class L10nArAfipwsDummy(models.TransientModel):
     )
 
     afip_ws_caea_state = fields.Selection(
-        [('inactive', 'Use WS'), ('active', 'Use CAEA')],
+        [('inactive', 'Using WS'), ('active', 'In contingency mode')],
         string='AFIP enviroment type',
         compute='_compute_afip_ws_caea_state',
         default=lambda self: self._default_afip_ws_caea_state()
