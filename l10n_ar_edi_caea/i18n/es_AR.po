@@ -4,47 +4,32 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e-20211005\n"
+"Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 23:40+0000\n"
-"PO-Revision-Date: 2022-01-23 23:40+0000\n"
+"POT-Creation-Date: 2022-02-22 19:04+0000\n"
+"PO-Revision-Date: 2022-02-22 16:07-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-
-#. module: l10n_ar_edi_caea
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#, python-format
-msgid "\"Check Available AFIP PoS\" is not implemented for webservice %s"
-msgstr ""
-"\"Comprobar PdV AFIP disponibles\" no esta implementado para el webservice "
-"%s"
+"Language: es_AR\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
 msgid ""
 "<span class=\"fa fa-lg fa-building-o\" groups=\"base.group_multi_company\" "
 "title=\"Values set here are company-specific.\"/>"
-msgstr "<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos aquí son específicos de la empresa.\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos "
+"aquí son específicos de la empresa.\" groups=\"base.group_multi_company\"/>"
 
 #. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
 msgid "AFIP CAEA state"
 msgstr "Estado de CAEA"
-
-#. module: l10n_ar_edi_caea
-#: code:addons/l10n_ar_edi_caea/models/account_move.py:0
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#, python-format
-msgid "AFIP Messages"
-msgstr "Mensajes de AFIP"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_pos_system
@@ -71,7 +56,7 @@ msgstr "AFIP metodo WS"
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__afip_ws_caea_state
 msgid "AFIP enviroment type"
-msgstr ""
+msgstr "AFIP tipo de conexion"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,help:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_result
@@ -93,13 +78,13 @@ msgstr ""
 #. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
-msgid "Active CAEA"
-msgstr "Activar CAEA"
+msgid "Active contingency mode"
+msgstr "Activar el modo de contingencia"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_ids
 msgid "Activities"
-msgstr ""
+msgstr "Actividades"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_decoration
@@ -117,21 +102,24 @@ msgid "Activity Type Icon"
 msgstr ""
 
 #. module: l10n_ar_edi_caea
-#. openerp-web
-#: code:addons/l10n_ar_edi_caea/static/src/xml/systray_afip_caea.xml:0
-#, python-format
-msgid "Afip state"
-msgstr "Estado de Afip"
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company__use_caea
+msgid "Allow contingency billing"
+msgstr ""
 
 #. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
-msgid "Allow generate invoices with CAEA"
-msgstr "Permite generar Facturas autorizadas mediante CAEA"
+msgid "Allow generate invoices with contingency method"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__app_server_status
+msgid "App Server Status"
+msgstr ""
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__04
 msgid "April"
-msgstr "Abril
+msgstr "Abri"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_attachment_count
@@ -154,7 +142,7 @@ msgstr "Diarios autorizados para CAEA"
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__name
 #: model:ir.ui.menu,name:l10n_ar_edi_caea.caea_menu
 msgid "CAEA"
-msgstr "CAEA"
+msgstr ""
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__caea_post_datetime
@@ -173,7 +161,7 @@ msgstr "Esta aurizacion ya existe"
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__caea_id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__caea_id
 msgid "Caea"
-msgstr "Caea"
+msgstr ""
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_caea_reported
@@ -183,19 +171,15 @@ msgid "Caea Reported"
 msgstr "Caea Reportado"
 
 #. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_import_journal_creation__caea_journal_id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal__caea_journal_id
 msgid "Caea journal"
-msgstr ""
+msgstr "Diario de contingencia"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model,name:l10n_ar_edi_caea.model_l10n_ar_afipws_caea
 msgid "Caea registry"
 msgstr "Diario CAEA"
-
-#. module: l10n_ar_edi_caea
-#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__afip_ws_caea_timeout
-msgid "Caea timeout"
-msgstr "Duración del estado Caea"
 
 #. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
@@ -217,6 +201,16 @@ msgstr "Compañía"
 #: model:ir.model,name:l10n_ar_edi_caea.model_res_config_settings
 msgid "Config Settings"
 msgstr "Opciones de configuración"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_l10n_ar_afip_ws_consult
+msgid "Consult Invoice Data in AFIP"
+msgstr "Consultar Datos de la Factura en AFIP"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__afip_ws_caea_timeout
+msgid "Contingency timeout"
+msgstr "Contingencia Timeout"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__create_uid
@@ -250,6 +244,7 @@ msgstr "Diciembre"
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal__display_name
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult__display_name
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__display_name
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__display_name
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__display_name
@@ -257,18 +252,6 @@ msgstr "Diciembre"
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "Mostrar Nombre"
-
-#. module: l10n_ar_edi_caea
-#: code:addons/l10n_ar_edi_caea/models/account_journal.py:0
-#, python-format
-msgid "Electronic Invoice CAEA - Advance electronic authorization code"
-msgstr "Factura electronica CAEA - Codigo de autorizacion adelantado"
-
-#. module: l10n_ar_edi_caea
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#, python-format
-msgid "Error cant reported with no invoices"
-msgstr "No se puede reportar sin movimientos"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__afip_errors
@@ -283,7 +266,7 @@ msgstr "Eventos"
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__02
 msgid "February"
-msgstr ""
+msgstr "Febrero"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_follower_ids
@@ -313,13 +296,14 @@ msgstr "Quincena"
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal__id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult__id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company__id
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_icon
@@ -349,6 +333,12 @@ msgid "In AFIP syncro"
 msgstr ""
 
 #. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_dummy__afip_ws_caea_state__active
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__active
+msgid "In contingency mode"
+msgstr "En modo de contingencia"
+
+#. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
 msgid "Invoices"
 msgstr "Facturas"
@@ -365,6 +355,7 @@ msgstr "Enero"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model,name:l10n_ar_edi_caea.model_account_journal
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult__journal_id
 msgid "Journal"
 msgstr "Diario"
 
@@ -386,6 +377,7 @@ msgstr "Junio"
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal____last_update
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult____last_update
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea____last_update
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log____last_update
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy____last_update
@@ -519,25 +511,14 @@ msgid "Rejected"
 msgstr "Rechazado"
 
 #. module: l10n_ar_edi_caea
-#: code:addons/l10n_ar_edi_caea/models/afipws_caea.py:0
-#, python-format
-msgid "Reported with no invoices successful"
-msgstr "Informe sin movimientos Realizado"
-
-#. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
 msgid "Request CAEA"
 msgstr "Pedir CAEA"
 
 #. module: l10n_ar_edi_caea
-#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company__use_caea
-msgid "Request Caea autorization"
-msgstr "Pedir autorizacion Caea "
-
-#. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Responsable"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_result
@@ -545,11 +526,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__l10n_ar_afip_result
 msgid "Result"
 msgstr "Resultado"
-
-#. module: l10n_ar_edi_caea
-#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
-msgid "Return to CAE"
-msgstr "Volver con CAE"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_sms_error
@@ -582,14 +558,8 @@ msgstr ""
 
 #. module: l10n_ar_edi_caea
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
-msgid "Stop CAEA"
-msgstr "Detener CAEA"
-
-#. module: l10n_ar_edi_caea
-#: code:addons/l10n_ar_edi_caea/models/account_move.py:0
-#, python-format
-msgid "The inovice has not CAEA journal"
-msgstr "El diario de la Factura no esta relacionado a un Diario CAEA"
+msgid "Stop contingency mode"
+msgstr "Detener modo contingencia"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_decoration
@@ -612,14 +582,7 @@ msgid "Update autorized CAEA pos"
 msgstr "Actualizar PDV autorizados para CAEA"
 
 #. module: l10n_ar_edi_caea
-#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_dummy__afip_ws_caea_state__active
-#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__active
-msgid "Use CAEA"
-msgstr "Usar CAEA"
-
-#. module: l10n_ar_edi_caea
-#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_dummy__afip_ws_caea_state__inactive
-#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__inactive
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
 msgid "Use WS"
 msgstr "Usa WS"
 
@@ -627,6 +590,12 @@ msgstr "Usa WS"
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__user_id
 msgid "User"
 msgstr "Usuario"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_dummy__afip_ws_caea_state__inactive
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__inactive
+msgid "Using WS"
+msgstr ""
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__website_message_ids
@@ -672,7 +641,7 @@ msgstr "CAEA"
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
 #: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
 msgid "description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__state__draft
@@ -717,7 +686,7 @@ msgstr "Informado"
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea_log__event__request
 msgid "request"
-msgstr ""
+msgstr "Pedido"
 
 #. module: l10n_ar_edi_caea
 #: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__order__2

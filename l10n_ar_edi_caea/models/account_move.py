@@ -56,6 +56,8 @@ class AccountMove(models.Model):
     def _l10n_ar_do_afip_ws_request_caea(self):
         for inv in self:
             afip_caea = inv.company_id.get_active_caea()
+            if not len(afip_caea):
+                raise UserError(_('Dont have CAEA Active'))
             if inv.journal_id.l10n_ar_afip_pos_system == 'CAEA' and afip_caea:
                 values = {'l10n_ar_afip_auth_mode': 'CAEA',
                           'l10n_ar_afip_auth_code': afip_caea['name'],
