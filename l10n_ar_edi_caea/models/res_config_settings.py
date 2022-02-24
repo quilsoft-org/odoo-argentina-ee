@@ -7,7 +7,8 @@ class ResConfigSettings(models.TransientModel):
 
     use_caea = fields.Boolean(
         string='Allow contingency billing',
-        related='company_id.use_caea'
+        related='company_id.use_caea',
+        readonly=False
     )
 
     afip_ws_caea_state = fields.Selection(
