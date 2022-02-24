@@ -5,6 +5,11 @@ class ResConfigSettings(models.TransientModel):
 
     _inherit = 'res.config.settings'
 
+    use_caea = fields.Boolean(
+        string='Allow contingency billing',
+        related='company_id.use_caea'
+    )
+
     afip_ws_caea_state = fields.Selection(
         [('inactive', 'Using WS'), ('active', 'In contingency mode'),
          ('syncro', 'In AFIP syncro')],
