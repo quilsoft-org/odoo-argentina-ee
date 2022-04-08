@@ -5,10 +5,10 @@
         <field name="model">account.journal.book.report</field>
         <field name="inherit_id" ref="account.account_common_report_view"/>
         <field name="arch" type="xml">
-
             <field name="company_id" position="replace"/>
             <field name="target_move" position="before">
                 <field name="company_id" readonly="0"/>
+                <field name="report_exported" invisible="1"/>
             </field>
             <!-- we make journals selection invisible and not required -->
             <field name="journal_ids" position="attributes">
@@ -20,6 +20,12 @@
                 <!-- <field name="landscape"/> -->
                 <!-- <field name="group_by_number_in_book"/> -->
                 <newline/>
+            </xpath>
+            <xpath expr="//group" position="after">
+                 <group attrs="{'invisible':[('report_exported','=',False)]}">
+                                <field name="file_name" invisible="1"/>
+                                <field name="report_file" readonly="1"  filename="file_name"/>
+                        </group>
             </xpath>
         </field>
         </record>
