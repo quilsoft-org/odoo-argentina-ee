@@ -14,15 +14,14 @@ class generic_tax_report(models.AbstractModel):
         # FIN CAMBIO
         groups = dict((tp, {}) for tp in types)
         for key, tax in taxes.items():
-
             # 'none' taxes are skipped.
-            if tax['obj'].type_tax_use == 'none':
+            if tax['obj'].get('obj').type_tax_use == 'none':
                 continue
 
-            if tax['obj'].amount_type == 'group':
+            if tax['obj'].get('obj').amount_type == 'group':
 
                 # Group of taxes without child are skipped.
-                if not tax['obj'].children_tax_ids:
+                if not tax['obj'].get('obj').children_tax_ids:
                     continue
 
                 # - If at least one children is 'none', show the group of taxes.
@@ -30,7 +29,7 @@ class generic_tax_report(models.AbstractModel):
 
                 tax['children'] = []
                 tax['show'] = False
-                for child in tax['obj'].children_tax_ids:
+                for child in tax['obj'].get('obj').children_tax_ids:
 
                     if child.type_tax_use != 'none':
                         continue
@@ -39,7 +38,7 @@ class generic_tax_report(models.AbstractModel):
                     for i, period_vals in enumerate(taxes[child.id]['periods']):
                         tax['periods'][i]['tax'] += period_vals['tax']
 
-            groups[tax['obj'].type_tax_use][key] = tax
+            groups[tax['obj'].get('obj').type_tax_use][key] = tax
 
         period_number = len(options['comparison'].get('periods'))
         line_id = 0
@@ -54,19 +53,19 @@ class generic_tax_report(models.AbstractModel):
                     'columns': [{} for k in range(0, 2 * (period_number + 1) or 2)],
                     'level': 1,
                 })
-            for key, tax in sorted(groups[tp].items(), key=lambda k: k[1]['obj'].sequence):
+            for key, tax in sorted(groups[tp].items(), key=lambda k: k[1]['obj'].get('obj').sequence):
                 if tax['show']:
                     columns = []
-                    for period in tax['periods']:
-                        columns += [{'name': self.format_value(period['net'] * sign), 'style': 'white-space:nowrap;'},{'name': self.format_value(period['tax'] * sign), 'style': 'white-space:nowrap;'}]
+                    for period in tax['periods'].get('periods'):
+                        columns += [{'name': self.format_value(period['net'] * sign), 'style': 'white-space:nowrap;'}, {'name': self.format_value(period['tax'] * sign), 'style': 'white-space:nowrap;'}]
 
-                    if tax['obj'].amount_type == 'group':
-                        report_line_name = tax['obj'].name
+                    if tax['obj'].get('obj').amount_type == 'group':
+                        report_line_name = tax['obj'].get('obj').name
                     else:
-                        report_line_name = '%s (%s)' % (tax['obj'].name, tax['obj'].amount)
+                        report_line_name = '%s (%s)' % (tax['obj'].get('obj').name, tax['obj'].get('obj').amount)
 
                     lines.append({
-                        'id': tax['obj'].id,
+                        'id': tax['obj'].get('obj').id,
                         'name': report_line_name,
                         'unfoldable': False,
                         'columns': columns,
