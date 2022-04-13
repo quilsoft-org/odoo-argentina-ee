@@ -73,11 +73,12 @@ class AccountJournalBookReport(models.TransientModel):
         moves = self.env['account.move'].search(domain)
 
         data = {
-            'last_entry_number':self.last_entry_number,
+            'last_entry_number': self.last_entry_number,
+            'periods': periods,
             'moves': moves.ids
         }
         return self.env.ref('account_journal_book_report.action_account_journal_book_report_xlsx').\
-            report_action(self,data=data)
+            report_action(self, data=data)
 
 
 class JournalBookReportXlsx(models.AbstractModel):
@@ -99,19 +100,33 @@ class JournalBookReportXlsx(models.AbstractModel):
 
         moves_ids = data.get('moves')
         last_entry_number = data.get('last_entry_number')
-        moves = self.env['account.move'].search([('id','in',moves_ids)])
+        periods_ids = data.get('periods')
         initial_row = 5
         num = 1 if last_entry_number == 0 else last_entry_number
-        for m in moves:
-            sheet.write(initial_row, 0, num)
-            sheet.write(initial_row, 1, m.date,format_date)
-            partner = m.partner_id.name if m.partner_id else ''
-            sheet.write(initial_row, 2, m.name + ' - ' + partner)
-            for l in m.line_ids:
+        for p in periods_ids:
+            for move in self.env['account.move'].search([('id', 'in', moves_ids), ('date', '>=', p[0]), ('date', '<=', p[1]), ('journal_id.book_group_id', '=', False)], order='date, id'):
+                sheet.write(initial_row, 0, num)
+                sheet.write(initial_row, 1, move.date, format_date)
+                sheet.write(initial_row, 1, move.date, format_date)
+                partner = move.partner_id.name if move.partner_id else ''
+                sheet.write(initial_row, 2, move.name + ' - ' + partner)
+                for line in move.line_ids.sorted(lambda x: x.credit):
+                    initial_row += 1
+                    sheet.write(initial_row, 2, line.account_id.code)
+                    sheet.write(initial_row, 3, line.account_id.name)
+                    sheet.write(initial_row, 4, line.debit)
+                    sheet.write(initial_row, 5, line.credit)
                 initial_row += 1
-                sheet.write(initial_row, 2,l.account_id.code)
-                sheet.write(initial_row, 3, l.account_id.name)
-                sheet.write(initial_row, 4, l.debit)
-                sheet.write(initial_row, 5, l.credit)
-            initial_row += 1
-            num += 1
+                num += 1
+            for move_g in self.env['account.move.line'].search([('move_id', 'in', moves_ids), ('date', '>=', p[0]), ('date', '<=', p[1]), ('journal_id.book_group_id', '!=', False)]).mapped('journal_id.book_group_id'):
+                sheet.write(initial_row, 0, num)
+                sheet.write(initial_row, 1, p[1], format_date)
+                sheet.write(initial_row, 2, move_g.name)
+                for line_g in self.env['account.move.line'].read_group([('move_id', 'in', moves_ids), ('date', '>=', p[0]), ('date', '<=', p[1]), ('journal_id.book_group_id', '=', move_g.id), ('debit', '>', 0.0)], ['account_id', 'debit', 'credit'], ['account_id'], orderby='debit desc') + self.env['account.move.line'].read_group([('move_id', 'in', moves_ids), ('journal_id.book_group_id', '=', move_g.id), ('credit', '>', 0.0)], ['account_id', 'debit', 'credit'], ['account_id'], orderby='debit desc'):
+                    initial_row += 1
+                    sheet.write(initial_row, 2, self.env['account.account'].browse(line_g.get('account_id')[0]).code if line_g.get('account_id') else '')
+                    sheet.write(initial_row, 3, self.env['account.account'].browse(line_g.get('account_id')[0]).name if line_g.get('account_id') else '')
+                    sheet.write(initial_row, 4, line_g.get('debit'))
+                    sheet.write(initial_row, 5, line_g.get('credit'))
+                initial_row += 1
+                num += 1
