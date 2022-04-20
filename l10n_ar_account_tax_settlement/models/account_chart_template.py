@@ -11,9 +11,7 @@ class AccountChartTemplate(models.Model):
     _inherit = 'account.chart.template'
 
     def _create_bank_journals(self, company, acc_template_ref):
-        res = super(
-            AccountChartTemplate, self)._create_bank_journals(
-            company, acc_template_ref)
+        res = super()._create_bank_journals(company, acc_template_ref)
 
         if company.country_id != self.env.ref('base.ar'):
             return res
@@ -53,10 +51,8 @@ class AccountChartTemplate(models.Model):
         account_withholding_automatic = self.env['ir.module.module'].search([
             ('name', '=', 'account_withholding_automatic'),
             ('state', '=', 'installed')])
-        # por ahora, por mas que no tenga retenciones automaticas,
-        # creamos los daiarios de liquidacion ya que es mas facil desactivarlos
-        # que crearlos luego, y si es un ri lo mas probable es que deba
-        # tenerlos
+        if not len(account_withholding_automatic):
+            return res
 
         # estas para mono no van, para exento y ri si
         if chart in (ri_chart, ex_chart):
@@ -82,9 +78,23 @@ class AccountChartTemplate(models.Model):
                     ref('l10n_ar_ux.tag_ret_perc_iibb_aplicada')),
             ]
 
-        # for name, code, tax, report, partner, credit_id, debit_id, tag \
-        for name, code, type, tax, partner, account, tag in journals:
-            if not account:
+        #for name, code, type, tax, partner, account, tag in journals:
+        for journal in journals:
+            # Dejo esta funcion MENOS NINJA 
+            # porque da problemas en el unpack
+            # si falla aca solo no creara los diarios
+            if len(journal) < 7:
+                _logger.info("Skip creation of journal %s because we didn't found all values")
+                continue
+            name = journal[0]
+            code = journal[1]
+            type = journal[2]
+            tax = journal[3]
+            partner = journal[4]
+            account = journal[5]
+            tag = journal[6] 
+
+            if account:
                 _logger.info("Skip creation of journal %s because we didn't found default account")
                 continue
             # journal_data.append({
