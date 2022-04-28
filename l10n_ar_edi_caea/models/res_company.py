@@ -26,3 +26,5 @@ class ResCompany(models.Model):
 
         return super()._l10n_ar_get_connection(afip_ws)
 
+    def get_caea_afip_ws(self):
+        return 'wsfe'
