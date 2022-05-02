@@ -10,16 +10,16 @@
 					<group>
 						<field name="afip_ws" invisible="True"/>
 						<field name="company_id" invisible="True"/>
-						<field name="afip_ws_caea_state"/>
-						<field name="afip_ws_caea_state"/>
-						<field name="app_server_status"/>
-						<field name="db_server_status"/>
-						<field name="auth_server_status"/>
-						<field name="status"/>
+						<field name="use_caea" invisible="True"/>
+						<field name="afip_ws_caea_state" attrs="{'readonly':True}" force_save="1"/>
+						<field name="app_server_status" attrs="{'readonly':True}" force_save="1"/>
+						<field name="db_server_status" attrs="{'readonly':True}" force_save="1"/>
+						<field name="auth_server_status" attrs="{'readonly':True}" force_save="1"/>
+						<field name="status" attrs="{'readonly':True}" force_save="1"/>
 					</group>
 				</sheet>
 				<footer>
-					<button   attrs="{'invisible':[('status','!=',False)]}" name="afip_red_button" string="Active contingency mode" type="object"/>
+					<button   attrs="{'invisible':[('status','!=',False), ('use_caea','=', True)]}" name="afip_red_button" string="Active contingency mode" type="object"/>
 					<button  name="afip_green_button" string="Use WS" type="object"/>
 				</footer>
 			</form>

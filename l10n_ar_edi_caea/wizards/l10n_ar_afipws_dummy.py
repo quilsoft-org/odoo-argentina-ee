@@ -21,6 +21,11 @@ class L10nArAfipwsDummy(models.TransientModel):
         default=lambda self: self.env.company.id
     )
 
+    use_caea = fields.Boolean(
+        string='Allow contingency billing',
+        related="self.company_id.use_caea"
+    )    
+
     afip_ws = fields.Char(
         string='AFIP WS',
         default=lambda self: self.get_afip_ws()
@@ -59,6 +64,7 @@ class L10nArAfipwsDummy(models.TransientModel):
     @api.onchange('afip_ws')
     def _onchange_afip_ws(self):
         ws_method = 'FEDummy'
+
         try:
             client, auth, transport = self.company_id.with_context(ignore_active_caea=True)._l10n_ar_get_connection(
                 self.afip_ws)._get_client(return_transport=True)
