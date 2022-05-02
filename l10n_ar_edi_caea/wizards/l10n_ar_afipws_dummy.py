@@ -23,7 +23,7 @@ class L10nArAfipwsDummy(models.TransientModel):
 
     use_caea = fields.Boolean(
         string='Allow contingency billing',
-        related="self.company_id.use_caea"
+        related="company_id.use_caea"
     )    
 
     afip_ws = fields.Char(

@@ -19,7 +19,7 @@
 					</group>
 				</sheet>
 				<footer>
-					<button   attrs="{'invisible':[('status','!=',False), ('use_caea','=', True)]}" name="afip_red_button" string="Active contingency mode" type="object"/>
+					<button attrs="{'invisible':[('status','!=',False), ('use_caea','=', True)]}" name="afip_red_button" string="Active contingency mode" type="object"/>
 					<button  name="afip_green_button" string="Use WS" type="object"/>
 				</footer>
 			</form>
