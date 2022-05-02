@@ -18,7 +18,7 @@ class L10nArAfipwsDummy(models.TransientModel):
     company_id = fields.Many2one(
         'res.company',
         string='Company',
-        default=lambda self: self.env.user.company_id.id
+        default=lambda self: self.env.company.id
     )
 
     afip_ws = fields.Char(
@@ -57,7 +57,7 @@ class L10nArAfipwsDummy(models.TransientModel):
         self.status = self.app_server_status and self.db_server_status and self.auth_server_status
 
     @api.onchange('afip_ws')
-    def _onchange_journal_id(self):
+    def _onchange_afip_ws(self):
         ws_method = 'FEDummy'
         try:
             client, auth, transport = self.company_id.with_context(ignore_active_caea=True)._l10n_ar_get_connection(

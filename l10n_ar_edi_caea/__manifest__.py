@@ -2,7 +2,7 @@
 
 {
     "name": "Argentinian Electronic Invoicing CAEA",
-    'version': '1.6',
+    'version': '1.7',
     'category': 'Accounting/Localizations/EDI',
     'sequence': 14,
     'author': 'Quilsoft',
