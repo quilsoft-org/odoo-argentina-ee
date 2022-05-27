@@ -1,3 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_inflation_adjustment_index_user,inflation.adjustment.index.user,model_inflation_adjustment_index,,1,1,1,1
 access_inflation_adjustment_user,inflation.adjustment.user,model_inflation_adjustment,,1,1,1,1
+access_download_file_user_admin,download_file_permissionss_admin,model_download_files_wizard,account.group_account_manager,1,1,1,1
+access_download_file_line_user_admin,download_file_line_permissionss_admin,model_download_files_wizard_line,account.group_account_manager,1,1,1,1
+
+access_download_file_user_accounting,download_file_permissionss_accounting,model_download_files_wizard,account.group_account_invoice,1,1,1,1
+access_download_file_line_user_accounting,download_file_line_permissionss_accounting,model_download_files_wizard_line,account.group_account_invoice,1,1,1,1
+
