@@ -50,6 +50,12 @@ class AccountJournal(models.Model):
         'account.financial.html.report',
         'Informe de liquidación',
     )
+
+    sequence_id = fields.Many2one(
+        'ir.sequence',
+        'Secuencia de entrada',
+    )
+
     # lo hacemos con etiquetas ya que se puede resolver con datos en plan
     # de cuentas sin incorporar lógica
     # TODO, por ahora son solo con tags de impuestos pero podrimoas dejar
@@ -164,9 +170,9 @@ class AccountJournal(models.Model):
             raise ValidationError(_(
                 'Settlement only allowed on journals with Tax Settlement '
                 'enable'))
-        # if not self.journal_id.sequence_id:
-        #     raise ValidationError(
-        #         _('Please define a sequence on the journal.'))
+        if not self.sequence_id:
+            raise ValidationError(
+                ('Por favor defina una secuencia para el diario %s.')%self.name)
         # queremos esta restriccion?
         if move_lines.filtered('tax_settlement_move_id'):
             raise ValidationError(_(
