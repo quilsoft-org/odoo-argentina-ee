@@ -15,6 +15,9 @@
                 <field name="settlement_financial_report_id" attrs="{'invisible': [('tax_settlement', '=', False)]}"/>
                 <field name="settlement_account_tag_ids" attrs="{'invisible': [('tax_settlement', '=', False)]}" widget="many2many_tags"/>
             </field>
+            <field name="code" position="after">
+                 <field name="sequence_id"/>
+            </field>
         </field>
     </record>
 
