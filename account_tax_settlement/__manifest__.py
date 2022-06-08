@@ -1,6 +1,6 @@
 {
     'name': 'Tax Settlement',
-    'version': '14.0.1.0.0',
+    'version': '14.0.1.0.1',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
@@ -25,6 +25,7 @@
         'views/account_journal_view.xml',
         'views/account_journal_dashboard_view.xml',
         'views/account_financial_html_report_line_view.xml',
+        'security/ir.model.access.csv'
     ],
     'demo': [
     ],
