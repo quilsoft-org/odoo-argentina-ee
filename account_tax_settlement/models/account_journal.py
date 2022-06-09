@@ -170,9 +170,7 @@ class AccountJournal(models.Model):
             raise ValidationError(_(
                 'Settlement only allowed on journals with Tax Settlement '
                 'enable'))
-        if not self.sequence_id:
-            raise ValidationError(
-                ('Por favor defina una secuencia para el diario %s.')%self.name)
+
         # queremos esta restriccion?
         if move_lines.filtered('tax_settlement_move_id'):
             raise ValidationError(_(
@@ -195,6 +193,9 @@ class AccountJournal(models.Model):
             [('id', 'in', move_lines.ids)])
         vals = self._get_tax_settlement_entry_vals(lines_vals)
         move = self.env['account.move'].create(vals)
+        move._set_next_sequence()
+        name = "%s/%04d/%02d/0000%s" % (move.journal_id.code, move.date.year, move.date.month,move.sequence_number)
+        move.name = name
         move_lines.write({'tax_settlement_move_id': move.id})
         return move
 
@@ -299,10 +300,8 @@ class AccountJournal(models.Model):
         for vals in lines_vals:
             line_ids.append((0, False, vals))
 
-        name = self.sequence_id.next_by_id()
         move_vals = {
             'ref': self._context.get('entry_ref', self.name),
-            'name': name,
             'date': self._context.get('entry_date', fields.Date.today()),
             'journal_id': self.id,
             'company_id': self.company_id.id,
