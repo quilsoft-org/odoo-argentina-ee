@@ -273,7 +273,8 @@ class AccountJournal(models.Model):
         # si el balance es distinto de cero agregamos cuenta contable
         if not self.company_id.currency_id.is_zero(balance):
             # check account payable
-            account = self.default_account_id
+            account = self.env['account.account'].search([('user_type_id','=',self.env.ref('account.data_unaffected_earnings').id)])
+
             if balance >= 0.0:
                 debit = 0.0
                 credit = balance
@@ -283,10 +284,7 @@ class AccountJournal(models.Model):
 
             if not account:
                 raise ValidationError(_(
-                    'Esta intentando crear un asiento automático desbalanceado'
-                    '. Es posible que haya un error en el informe o '
-                    'esté faltando configurar la cuenta de contrapartida en el'
-                    'diario.'))
+                    'Debe definir una cuenta del tipo "Ganancias del año actual"'))
             lines_vals.append({
                 'partner_id': self.settlement_partner_id.id,
                 'name': self.name,
