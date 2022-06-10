@@ -153,8 +153,8 @@ class AccountFinancialReport(models.Model):
                 limit=1)
             if not account:
                 raise ValidationError(_(
-                    'No account found with tag "%s" (id: %s) for company "%s".'
-                    ' Check report and accounts configuration.') % (
+                    'No se encontro cuenta con tag "%s" (id: %s) para la compania "%s".'
+                    ' Consultar configuración de informes y cuentas.') % (
                     new_line.settement_account_tag_id.name,
                     new_line.settement_account_tag_id.id,
                     journal.company_id.name))
