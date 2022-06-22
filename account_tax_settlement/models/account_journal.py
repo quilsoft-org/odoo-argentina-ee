@@ -273,7 +273,21 @@ class AccountJournal(models.Model):
         # si el balance es distinto de cero agregamos cuenta contable
         if not self.company_id.currency_id.is_zero(balance):
             # check account payable
-            account = self.env['account.account'].search([('user_type_id','=',self.env.ref('account.data_unaffected_earnings').id)])
+
+            account = self.default_account_id
+
+            #hago esto en el caso especial de asiento de refundacion de ganancias
+
+            if 'context' in self._context:
+                if 'model' in self._context['context']:
+                    model = self._context['context']['model']
+                    id = self._context['context']['id']
+                if model =='account.financial.html.report':
+                    report = self.env[model].search([('id','=',id)])
+                    if report.get_xml_id().get(1) == 'account_reports.account_financial_report_profitandloss0':
+                        account = self.env['account.account'].search([('user_type_id', '=', self.env.ref('account.data_unaffected_earnings').id)])
+
+
 
             if balance >= 0.0:
                 debit = 0.0
