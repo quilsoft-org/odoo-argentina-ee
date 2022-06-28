@@ -21,6 +21,7 @@
         'views/res_partner_view.xml',
         'views/account_move_view.xml',
         'views/account_journal_view.xml',
+        'security/ir.model.access.csv'
     ],
     'demo': [
         'demo/res_partner_demo.xml',

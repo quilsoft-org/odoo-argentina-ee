@@ -36,6 +36,7 @@
     'data': [
         'views/account_journal_dashboard_view.xml',
         'wizards/checks_to_date_view.xml',
+        'security/ir.model.access.csv'
     ],
     'demo': [
     ],

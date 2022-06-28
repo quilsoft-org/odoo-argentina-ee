@@ -81,4 +81,6 @@
     <act_window id="action_partner_update" res_model="res.partner.update.from.padron.wizard" binding_model="res.partner"
         target="new" view_mode="form" name="Automatic Update from Padron"/>
 
+
+
 </odoo>
