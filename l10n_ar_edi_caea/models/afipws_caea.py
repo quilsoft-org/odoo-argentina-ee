@@ -246,15 +246,16 @@ class L10nArAfipwsCaea(models.Model):
         client, auth = connection._get_client()
         if afip_ws == 'wsfe':
             response = client.service.FEParamGetPtosVenta(auth)
+            pos_numbers = []
             if response.ResultGet:
                 journal_ids = False
                 for pdv in response.ResultGet.PtoVenta:
-                    pos_numbers = []
                     if pdv.EmisionTipo.startswith('CAEA') and pdv.Bloqueado == 'N':
                         pos_numbers.append(int(pdv['Nro']))
+                if len(pos_numbers):                        
                     journal_ids = self.env['account.journal'].search(
-                        [('l10n_ar_afip_pos_number', 'in', pos_numbers)])
-                if journal_ids:
+                            [('l10n_ar_afip_pos_number', 'in', pos_numbers)])
+                if len(journal_ids):
                     self.journal_ids = [(6, 0, journal_ids.ids)]
         else:
             raise UserError(
