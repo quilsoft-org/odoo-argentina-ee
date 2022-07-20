@@ -106,8 +106,7 @@ class AccountJournal(models.Model):
 
             # Campo 1: CUIT char(13). CUIT del Sujeto retenido o percibido. Ejemplo: 20-10111222-3
             # Example "30-58710878-6"
-            partner.cuit_required()
-            content = partner.formated_cuit
+            content = "{0}-{1}-{2}".format(partner.vat[0:2], partner.vat[2:10], partner.vat[10:])
 
             # Campo 2: Denominación char(80). Apellido y Nombre o Razón Social. Formato: 80 posiciones, se completa con
             # blancos a la derecha.
@@ -149,7 +148,7 @@ class AccountJournal(models.Model):
         move_line = move_lines and move_lines[0] or self.env['account.move.line']
         tipo_agente = 'rr'  # This value is fixed just because we are doing the retention txt, when adding the
         # perception we need to change it
-        cuit = move_line.company_id.cuit
+        cuit = move_line.company_id.vat
         periodo = fields.Date.from_string(move_line.date).strftime('%Y') or ""  # 'pppp' AÑO '2020'
         cuota = fields.Date.from_string(move_line.date).strftime('%m') or ""  # 'cc'
 
