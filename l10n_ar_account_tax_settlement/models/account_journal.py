@@ -71,14 +71,14 @@ class AccountJournal(models.Model):
             ("iibb_aplicado_dgr_mendoza", "TXT  Perc/Ret IIBB aplicado DGR Mendonza"),
         ],
         ondelete={
-            "sicore_aplicado": cascade,
-            "iibb_sufrido": cascade,
-            "iibb_aplicado": cascade,
-            "iibb_aplicado_act_7": cascade,
-            "iibb_aplicado_agip": cascade,
-            "iibb_aplicado_api": cascade,
-            "iibb_aplicado_sircar": cascade,
-            "iibb_aplicado_dgr_mendoza": cascade,
+            "sicore_aplicado": "cascade",
+            "iibb_sufrido": "cascade",
+            "iibb_aplicado": "cascade",
+            "iibb_aplicado_act_7": "cascade",
+            "iibb_aplicado_agip": "cascade",
+            "iibb_aplicado_api": "cascade",
+            "iibb_aplicado_sircar": "cascade",
+            "iibb_aplicado_dgr_mendoza": "cascade",
         },
     )
 
