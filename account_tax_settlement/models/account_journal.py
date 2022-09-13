@@ -22,6 +22,11 @@ class AccountJournal(models.Model):
     """
     _inherit = 'account.journal'
 
+    default_account_id = fields.Many2one(
+        comodel_name='account.account', check_company=True, copy=False, ondelete='restrict',
+        string='Default Account',
+        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]")
+
     tax_settlement = fields.Selection([
         ('yes', 'Yes'),
         ('allow_per_line', 'Yes, allow per line'),
