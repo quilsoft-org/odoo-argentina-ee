@@ -11,7 +11,7 @@ WS_DATE_FORMAT = {'wsfe': '%Y%m%d', 'wsfex': '%Y%m%d', 'wsbfe': '%Y%m%d'}
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
-    
+
     l10n_ar_afip_pos_system = fields.Char(
         string='AFIP POS System',
         compute='_compute_l10n_ar_afip_pos_system'
@@ -164,3 +164,39 @@ class AccountMove(models.Model):
                     self.journal_id.l10n_ar_afip_ws and not self.journal_id.use_for_caea
                     )
     """
+
+    def _get_related_invoice_data(self):
+        """ Applies on wsfe and wsfex web services """
+        self.ensure_one()
+        if  self.journal_id.l10n_ar_afip_ws != 'CAEA':
+            return super()._get_related_invoice_data()
+        res = {}
+        related_inv = self._found_related_invoice()
+        afip_ws = 'wsfe'
+
+        if not related_inv:
+            return res
+
+        # WSBFE_1035 We should only send CbtesAsoc if the invoice to validate has any of the next doc type codes
+        if afip_ws == 'wsbfe' and \
+           int(self.l10n_latam_document_type_id.code) not in [2, 3, 7, 8, 91, 202, 203, 207, 208]:
+            return res
+
+        wskey = {'wsfe': {'type': 'Tipo', 'pos_number': 'PtoVta', 'number': 'Nro', 'cuit': 'Cuit', 'date': 'CbteFch'},
+                 'wsbfe': {'type': 'Tipo_cbte', 'pos_number': 'Punto_vta', 'number': 'Cbte_nro', 'cuit': 'Cuit', 'date': 'Fecha_cbte'},
+                 'wsfex': {'type': 'Cbte_tipo', 'pos_number': 'Cbte_punto_vta', 'number': 'Cbte_nro', 'cuit': 'Cbte_cuit'}}
+
+        res.update({wskey[afip_ws]['type']: related_inv.l10n_latam_document_type_id.code,
+                    wskey[afip_ws]['pos_number']: related_inv.journal_id.l10n_ar_afip_pos_number,
+                    wskey[afip_ws]['number']: self._l10n_ar_get_document_number_parts(
+                        related_inv.l10n_latam_document_number, related_inv.l10n_latam_document_type_id.code)['invoice_number']})
+
+        # WSFE_10151 send cuit of the issuer if type mipyme refund
+        if self._is_mipyme_fce_refund() or afip_ws == 'wsfex':
+            res.update({wskey[afip_ws]['cuit']: related_inv.company_id.partner_id._get_id_number_sanitize()})
+
+        # WSFE_10158 send orignal invoice date on an mipyme document
+        if afip_ws == 'wsfe' and (self._is_mipyme_fce() or self._is_mipyme_fce_refund()):
+            res.update({wskey[afip_ws]['date']: related_inv.invoice_date.strftime(WS_DATE_FORMAT[afip_ws])})
+
+        return res
