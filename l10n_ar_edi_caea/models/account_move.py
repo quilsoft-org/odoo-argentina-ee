@@ -168,6 +168,8 @@ class AccountMove(models.Model):
     def _get_related_invoice_data(self):
         """ Applies on wsfe and wsfex web services """
         self.ensure_one()
+        _logger.info('journal_id.l10n_ar_afip_ws = %s', self.journal_id.l10n_ar_afip_ws)
+
         if  self.journal_id.l10n_ar_afip_ws != 'CAEA':
             return super()._get_related_invoice_data()
         res = {}
