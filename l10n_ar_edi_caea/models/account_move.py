@@ -170,7 +170,7 @@ class AccountMove(models.Model):
         self.ensure_one()
         _logger.info('journal_id.l10n_ar_afip_ws = %s', self.journal_id.l10n_ar_afip_ws)
 
-        if  self.journal_id.l10n_ar_afip_ws != 'CAEA':
+        if self.journal_id.l10n_ar_afip_ws != False:
             return super()._get_related_invoice_data()
         res = {}
         related_inv = self._found_related_invoice()
