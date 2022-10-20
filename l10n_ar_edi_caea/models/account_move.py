@@ -178,8 +178,7 @@ class AccountMove(models.Model):
             return res
 
         # WSBFE_1035 We should only send CbtesAsoc if the invoice to validate has any of the next doc type codes
-        if afip_ws == 'wsbfe' and \
-           int(self.l10n_latam_document_type_id.code) not in [2, 3, 7, 8, 91, 202, 203, 207, 208]:
+        if int(self.l10n_latam_document_type_id.code) not in [2, 3, 7, 8, 91, 202, 203, 207, 208]:
             return res
 
         wskey = {'wsfe': {'type': 'Tipo', 'pos_number': 'PtoVta', 'number': 'Nro', 'cuit': 'Cuit', 'date': 'CbteFch'},
