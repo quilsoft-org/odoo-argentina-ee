@@ -177,8 +177,7 @@ class L10nArAfipwsCaea(models.Model):
                 return response
             else:
                 raise UserError(repr(response['Errors']))
-        if response['Events']:
-            raise UserError(repr(response['Events']))
+
 
         return response['ResultGet']
 
