@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from odoo.addons.l10n_ar_edi.models.account_move import WS_DATE_FORMAT
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
@@ -20,11 +21,12 @@ class AccountMove(models.Model):
         """
         res = super()._found_related_invoice()
         if not res and self.l10n_latam_document_type_id.internal_type in ['credit_note', 'debit_note'] and \
-           self.sudo().env.ref('base.module_sale').state == 'installed':
+                self.sudo().env.ref('base.module_sale').state == 'installed':
             original_entry = self.mapped('invoice_line_ids.sale_line_ids.invoice_lines').filtered(
-                lambda x:  x.move_id.l10n_latam_document_type_id.country_id.code == 'AR' and
-                x.move_id.l10n_latam_document_type_id.internal_type != self.l10n_latam_document_type_id.internal_type
-                and x.move_id.l10n_ar_afip_result in ['A', 'O'] and x.move_id.l10n_ar_afip_auth_code).mapped('move_id')
+                lambda x: x.move_id.l10n_latam_document_type_id.country_id.code == 'AR' and
+                          x.move_id.l10n_latam_document_type_id.internal_type != self.l10n_latam_document_type_id.internal_type
+                          and x.move_id.l10n_ar_afip_result in ['A', 'O'] and x.move_id.l10n_ar_afip_auth_code).mapped(
+                'move_id')
             return original_entry and original_entry[0] or res
         return res
 
@@ -38,3 +40,8 @@ class AccountMove(models.Model):
                     'FchDesde': self.l10n_ar_afip_asoc_period_start.strftime(WS_DATE_FORMAT['wsfe']),
                     'FchHasta': self.l10n_ar_afip_asoc_period_end.strftime(WS_DATE_FORMAT['wsfe'])}})
         return res
+
+    def action_switch_invoice_into_refund_credit_note(self):
+        if self.l10n_ar_afip_xml_request:
+            raise UserError("La factura ya fue enviada a AFIP, no puede cambiarla a factura rectificativa.")
+        return super(AccountMove, self).action_switch_invoice_into_refund_credit_note()
