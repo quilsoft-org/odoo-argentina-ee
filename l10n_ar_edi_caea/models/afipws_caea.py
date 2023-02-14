@@ -369,6 +369,8 @@ class L10nArAfipwsCaea(models.Model):
     def cron_request_caea(self):
         request_date = fields.Date.today() + relativedelta(days=7)
         period = request_date.strftime('%Y%m')
+        year = request_date.strftime('%Y')
+        month = request_date.strftime('%m')
         order = '1' if request_date.day < 16 else '2'
 
         company_ids = self.env['res.company'].search([('use_caea', '=', True)])
@@ -383,7 +385,9 @@ class L10nArAfipwsCaea(models.Model):
                 self.create({
                     'name': period,
                     'order': order,
-                    'company_id': company_id.id
+                    'company_id': company_id.id,
+                    'year': int(year),
+                    'month': month,
                 })
 
     def cron_caea_timeout(self):

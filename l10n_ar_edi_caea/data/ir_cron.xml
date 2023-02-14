@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record model="ir.cron" id="ir_cron_request_caea">
+        <field name="name">Request CAEA</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="doall" eval="False"/>
+        <field
+                name="nextcall"
+                eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')"
+        />
+        <field name="model_id" ref="model_l10n_ar_afipws_caea"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_request_caea()</field>
+    </record>
+
+
+    <record model="ir.cron" id="ir_cron_cron_send_caea_invoices">
+        <field name="name">Send CAEA Invoices</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field
+                name="nextcall"
+                eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')"
+        />
+        <field name="active">True</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_l10n_ar_afipws_caea"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_send_caea_invoices()</field>
+    </record>
+
+
+    <record model="ir.cron" id="ir_cron_cron_caea_timeout">
+        <field name="name">CAEA Timeout</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+        <field name="doall" eval="False"/>
+        <field
+                name="nextcall"
+                eval="(datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')"
+        />
+        <field name="model_id" ref="model_l10n_ar_afipws_caea"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_caea_timeout()</field>
+    </record>
+</odoo>

@@ -18,6 +18,7 @@
     'depends': ['l10n_ar_edi'],
 
     'data': [
+        'data/ir_cron.xml',
         'views/afipws_caea.xml',
         'views/account_journal.xml',
         'views/account_move_view.xml',
