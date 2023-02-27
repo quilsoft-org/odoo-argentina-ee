@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError, RedirectWarning
 import logging
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
+from odoo import _, api, fields, models
+from odoo.exceptions import RedirectWarning, UserError
 
 _logger = logging.getLogger(__name__)
 
@@ -377,6 +378,11 @@ class L10nArAfipwsCaea(models.Model):
             if afip_result not in ["A", "O"]:
                 if not self.env.context.get("l10n_ar_invoice_skip_commit"):
                     self.env.cr.rollback()
+                    # levantamos una excepcion para que no siga informando facturas
+                    # porque ya sabemos que todas van a dar error al faltar esta no van
+                    # a coincidir los números
+                    raise UserError(_("Afip devuelve error al validar factura."))
+
                 if inv.exists():
                     # Only save the xml_request/xml_response fields if the invoice exists.
                     # It is possible that the invoice will rollback as well e.g. when it is automatically created when:
@@ -403,6 +409,10 @@ class L10nArAfipwsCaea(models.Model):
                 l10n_ar_afip_xml_response=xml_response,
             )
             inv.sudo().write(values)
+            # salvamos a BD una a una las facturas validadas para que si falla alguna
+            # y me hace rollback tendremos en odoo lo mismo que en afip.
+            self.env.cr.commit()
+
             if return_info:
                 inv.message_post(
                     body="<p><b>"
@@ -469,25 +479,24 @@ class L10nArAfipwsCaea(models.Model):
                 )
 
     def cron_caea_timeout(self):
+        """ Llamado desde cron vigila que el estado de contingencia no dure mas de
+        dos horas """
         state = self.env["ir.config_parameter"].get_param(
             "afip.ws.caea.state", "inactive"
         )
         if state == "active":
-            timeout = int(
+            timeout = float(
                 self.env["ir.config_parameter"].get_param("afip.ws.caea.timeout", 2)
             )
-            threshold = fields.Datetime.from_string(
-                fields.Datetime.now()
-            ) - relativedelta(minutes=int(timeout * 60))
-            log = self.env["afipws.caea.log"].search_count(
+            threshold = fields.Datetime.now() - relativedelta(minutes=int(timeout * 60))
+            log = self.env["l10n_ar.afipws.caea.log"].search_count(
                 [("event", "=", "start_caea"), ("event_datetime", ">", threshold)],
-                order="event_datetime DESC",
             )
             if log < 1:
                 self.env["ir.config_parameter"].set_param(
                     "afip.ws.caea.state", "inactive"
                 )
-                self.env["afipws.caea.log"].create(
+                self.env["l10n_ar.afipws.caea.log"].create(
                     [{"event": "end_caea", "user_id": self.env.user.id}]
                 )
 
