@@ -451,6 +451,10 @@ class L10nArAfipwsCaea(models.Model):
             )
 
     def cron_request_caea(self):
+        """ Llammado desde cron verifica si se requiere pedir a la afip un nuevo
+        certificado para CAEA lo hace si estamos 7 dias antes de la quincena y si
+        no esta otorgado esto es para cada compañia """
+
         request_date = fields.Date.today() + relativedelta(days=7)
         period = request_date.strftime("%Y%m")
         year = request_date.strftime("%Y")
@@ -481,6 +485,7 @@ class L10nArAfipwsCaea(models.Model):
     def cron_caea_timeout(self):
         """ Llamado desde cron vigila que el estado de contingencia no dure mas de
         dos horas """
+
         state = self.env["ir.config_parameter"].get_param(
             "afip.ws.caea.state", "inactive"
         )
@@ -501,6 +506,8 @@ class L10nArAfipwsCaea(models.Model):
                 )
 
     def cron_send_caea_invoices(self):
+        """ Llamado desde cron informa las facturas que se hicieron en modo de
+            contingencia, esto debe correrse a la noche """
 
         caea_ids = self.search(
             [
@@ -511,6 +518,22 @@ class L10nArAfipwsCaea(models.Model):
         )
         for caea_id in caea_ids:
             caea_id.action_send_invoices()
+
+    def cron_close_caea(self):
+        """ Llamado desde cron cierra los certificados CAEA al finalizar el periodo se
+            hace esto por cada compañia"""
+
+        raise NotImplemented('todavia no esta implementado')
+
+        company_ids = self.env["res.company"].search([("use_caea", "=", True)])
+        for company_id in company_ids:
+            caea = self.search(
+                [
+                    ("name", "=", period),
+                    ("state", "=", 'active'),
+                    ("company_id", "=", company_id.id),
+                ]
+            )
 
 
 class L10nArAfipwsCaeaLog(models.Model):
