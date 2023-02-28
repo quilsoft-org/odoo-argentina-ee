@@ -340,6 +340,7 @@ class L10nArAfipwsCaea(models.Model):
                         return_codes += [
                             str(ob.Code) for ob in result.Observaciones.Obs
                         ]
+
                     if result.Resultado in ["A", "O"]:
                         values = {
                             "l10n_ar_afip_auth_mode": "CAEA",
@@ -352,7 +353,6 @@ class L10nArAfipwsCaea(models.Model):
 
                     if result.Resultado == "R":
                         values = {"l10n_ar_afip_result": result.Resultado}
-
                     _logger.info(
                         "CAEA Reportado %s resultado=%s", inv.name, result.Resultado
                     )
