@@ -440,10 +440,6 @@ class L10nArAfipwsCaea(models.Model):
             lambda m: m.l10n_ar_afip_caea_reported is False
         )
 
-        import wdb
-
-        wdb.set_trace()
-
         afip_ws = self.get_afip_ws()
         return_info_all = []
         for inv in move_ids.sorted(key=lambda r: r.caea_post_datetime):
