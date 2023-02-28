@@ -353,7 +353,9 @@ class L10nArAfipwsCaea(models.Model):
                     if result.Resultado == "R":
                         values = {"l10n_ar_afip_result": result.Resultado}
 
-                    _logger.info('CAEA Reportado %s resultado=%s', inv.name, result.Resultado)
+                    _logger.info(
+                        "CAEA Reportado %s resultado=%s", inv.name, result.Resultado
+                    )
 
                 if response.Errors:
                     errors = "".join(
@@ -384,11 +386,18 @@ class L10nArAfipwsCaea(models.Model):
                     # levantamos una excepcion para que no siga informando facturas
                     # porque ya sabemos que todas van a dar error al faltar esta no van
                     # a coincidir los números
-                    raise UserError(_("Afip devuelve error al validar factura."))
+                    raise UserError(
+                        _(
+                            "Afip devuelve error al validar factura.\n"
+                            "request: %s \nresponse: %s"
+                        )
+                        % (xml_request, xml_response)
+                    )
 
                 if inv.exists():
                     # Only save the xml_request/xml_response fields if the invoice exists.
-                    # It is possible that the invoice will rollback as well e.g. when it is automatically created when:
+                    # It is possible that the invoice will rollback as well e.g. when it
+                    # is automatically created when:
                     #   * creating credit note with full reconcile option
                     #   * creating/validating an invoice from subscription/sales
                     inv.sudo().write(
@@ -431,7 +440,9 @@ class L10nArAfipwsCaea(models.Model):
             lambda m: m.l10n_ar_afip_caea_reported is False
         )
 
-        import wdb;wdb.set_trace()
+        import wdb
+
+        wdb.set_trace()
 
         afip_ws = self.get_afip_ws()
         return_info_all = []
@@ -456,9 +467,9 @@ class L10nArAfipwsCaea(models.Model):
             )
 
     def cron_request_caea(self):
-        """ Llammado desde cron verifica si se requiere pedir a la afip un nuevo
+        """Llammado desde cron verifica si se requiere pedir a la afip un nuevo
         certificado para CAEA lo hace si estamos 7 dias antes de la quincena y si
-        no esta otorgado esto es para cada compañia """
+        no esta otorgado esto es para cada compañia"""
 
         request_date = fields.Date.today() + relativedelta(days=7)
         period = request_date.strftime("%Y%m")
@@ -488,8 +499,8 @@ class L10nArAfipwsCaea(models.Model):
                 )
 
     def cron_caea_timeout(self):
-        """ Llamado desde cron vigila que el estado de contingencia no dure mas de
-        dos horas """
+        """Llamado desde cron vigila que el estado de contingencia no dure mas de
+        dos horas"""
 
         state = self.env["ir.config_parameter"].get_param(
             "afip.ws.caea.state", "inactive"
@@ -511,8 +522,8 @@ class L10nArAfipwsCaea(models.Model):
                 )
 
     def cron_send_caea_invoices(self):
-        """ Llamado desde cron informa las facturas que se hicieron en modo de
-            contingencia, esto debe correrse a la noche """
+        """Llamado desde cron informa las facturas que se hicieron en modo de
+        contingencia, esto debe correrse a la noche"""
 
         caea_ids = self.search(
             [
@@ -525,17 +536,17 @@ class L10nArAfipwsCaea(models.Model):
             caea_id.action_send_invoices()
 
     def cron_close_caea(self):
-        """ Llamado desde cron cierra los certificados CAEA al finalizar el periodo se
-            hace esto por cada compañia"""
+        """Llamado desde cron cierra los certificados CAEA al finalizar el periodo se
+        hace esto por cada compañia"""
 
-        raise NotImplemented('todavia no esta implementado')
+        raise NotImplemented("todavia no esta implementado")
 
         company_ids = self.env["res.company"].search([("use_caea", "=", True)])
         for company_id in company_ids:
             caea = self.search(
                 [
                     ("name", "=", period),
-                    ("state", "=", 'active'),
+                    ("state", "=", "active"),
                     ("company_id", "=", company_id.id),
                 ]
             )
