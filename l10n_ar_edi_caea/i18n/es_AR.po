@@ -1,0 +1,704 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ar_edi_caea
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-22 19:04+0000\n"
+"PO-Revision-Date: 2022-02-22 16:07-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_AR\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" groups=\"base.group_multi_company\" "
+"title=\"Values set here are company-specific.\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos "
+"aquí son específicos de la empresa.\" groups=\"base.group_multi_company\"/>"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid "AFIP CAEA state"
+msgstr "Estado de CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_pos_system
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__l10n_ar_afip_pos_system
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__l10n_ar_afip_pos_system
+msgid "AFIP POS System"
+msgstr "Sistma PDV Afip"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__afip_ws
+msgid "AFIP WS"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_l10n_ar_afipws_dummy
+msgid "AFIP dummy"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__afip_ws_caea_state
+msgid "AFIP enviroment method"
+msgstr "AFIP metodo WS"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__afip_ws_caea_state
+msgid "AFIP enviroment type"
+msgstr "AFIP tipo de conexion"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_result
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_account_move__l10n_ar_afip_result
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_account_payment__l10n_ar_afip_result
+msgid "AFIP request result"
+msgstr "Resultado de la Solicitud AFIP"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__status
+msgid "AFIP status"
+msgstr "Estatus de AFIP"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid "Active contingency mode"
+msgstr "Activar el modo de contingencia"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company__use_caea
+msgid "Allow contingency billing"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid "Allow generate invoices with contingency method"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__app_server_status
+msgid "App Server Status"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__04
+msgid "April"
+msgstr "Abri"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__08
+msgid "August"
+msgstr "Agosto"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__journal_ids
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "Autorized CAEA journals"
+msgstr "Diarios autorizados para CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.actions.act_window,name:l10n_ar_edi_caea.action_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__name
+#: model:ir.ui.menu,name:l10n_ar_edi_caea.caea_menu
+msgid "CAEA"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__caea_post_datetime
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__caea_post_datetime
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__caea_post_datetime
+msgid "CAEA post datetime"
+msgstr "Fecha de Validación con CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.constraint,message:l10n_ar_edi_caea.constraint_l10n_ar_afipws_caea_unique_caea
+msgid "CAEA request already exists!"
+msgstr "Esta aurizacion ya existe"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__caea_id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__caea_id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__caea_id
+msgid "Caea"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_caea_reported
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__l10n_ar_afip_caea_reported
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__l10n_ar_afip_caea_reported
+msgid "Caea Reported"
+msgstr "Caea Reportado"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_import_journal_creation__caea_journal_id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal__caea_journal_id
+msgid "Caea journal"
+msgstr "Diario de contingencia"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_l10n_ar_afipws_caea
+msgid "Caea registry"
+msgstr "Diario CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid "Check WS state"
+msgstr "Comprobar estado del WS"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__company_id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_l10n_ar_afip_ws_consult
+msgid "Consult Invoice Data in AFIP"
+msgstr "Consultar Datos de la Factura en AFIP"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__afip_ws_caea_timeout
+msgid "Contingency timeout"
+msgstr "Contingencia Timeout"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__create_uid
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__create_uid
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__create_date
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__create_date
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__db_server_status
+msgid "DB Server Status"
+msgstr "Estado del server de DB"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__event_datetime
+msgid "Datetime"
+msgstr "Fecha"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__12
+msgid "December"
+msgstr "Diciembre"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Mostrar Nombre"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__afip_errors
+msgid "Errors"
+msgstr "Errores"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__event
+msgid "Event"
+msgstr "Eventos"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__02
+msgid "February"
+msgstr "Febrero"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__order
+msgid "Fortnight"
+msgstr "Quincena"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_needaction
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_error
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__syncro
+msgid "In AFIP syncro"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_dummy__afip_ws_caea_state__active
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__active
+msgid "In contingency mode"
+msgstr "En modo de contingencia"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__01
+msgid "January"
+msgstr "Enero"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_account_journal
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_account_move
+msgid "Journal Entry"
+msgstr "Asiento contable"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__07
+msgid "July"
+msgstr "Julio"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__06
+msgid "June"
+msgstr "Junio"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_journal____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afip_ws_consult____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_company____last_update
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_res_config_settings____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__write_uid
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__write_uid
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__write_date
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__write_date
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid "List CAEA"
+msgstr "Listar CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__03
+msgid "March"
+msgstr "Marzo"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__05
+msgid "May"
+msgstr "Mayo"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__month
+msgid "Month"
+msgstr "Mes"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__move_ids
+msgid "Moves"
+msgstr "Comprobantes"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__11
+msgid "November"
+msgstr "Noviembre"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__afip_observations
+msgid "Observations"
+msgstr "Observaciones"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__10
+msgid "October"
+msgstr "Octubre"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__period
+msgid "Period"
+msgstr "Periodo"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__account_move__l10n_ar_afip_result__r
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "Request CAEA"
+msgstr "Pedir CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_user_id
+msgid "Responsible User"
+msgstr "Responsable"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_bank_statement_line__l10n_ar_afip_result
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_move__l10n_ar_afip_result
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_account_payment__l10n_ar_afip_result
+msgid "Result"
+msgstr "Resultado"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "Send invoices"
+msgstr "Informar comprobantes"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__month__09
+msgid "September"
+msgstr "Septiembre"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.res_config_settings_view_form
+msgid "Stop contingency mode"
+msgstr "Detener modo contingencia"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "Update autorized CAEA pos"
+msgstr "Actualizar PDV autorizados para CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
+msgid "Use WS"
+msgstr "Usa WS"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea_log__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_dummy__afip_ws_caea_state__inactive
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__res_config_settings__afip_ws_caea_state__inactive
+msgid "Using WS"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,help:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__year
+msgid "Year"
+msgstr "Año"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__state__active
+msgid "active"
+msgstr "Activo"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model,name:l10n_ar_edi_caea.model_l10n_ar_afipws_caea_log
+msgid "afipws caea log"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.actions.act_window,name:l10n_ar_edi_caea.action_afipws_dummy
+msgid "afipws dummy"
+msgstr ""
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_dummy__auth_server_status
+msgid "auth Server Status"
+msgstr "Estatus del server de autorizacion"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_caea_tree
+msgid "caea"
+msgstr "CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_dummy_form
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "description"
+msgstr "Descripción"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__state__draft
+msgid "draft"
+msgstr "Borrador"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea_log__event__end_caea
+msgid "end caea mode"
+msgstr "Terminar modo CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__order__1
+msgid "first Fortnight"
+msgstr "Primer Quincena"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__date_from
+msgid "from"
+msgstr "desde"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "invoices"
+msgstr "Comprobantes"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__process_deadline
+msgid "process deadline"
+msgstr "Fecha Tope proceso"
+
+#. module: l10n_ar_edi_caea
+#: model_terms:ir.ui.view,arch_db:l10n_ar_edi_caea.afipws_form
+msgid "report no invoices"
+msgstr "Informar sin movimientos"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__state__reported
+msgid "reported"
+msgstr "Informado"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea_log__event__request
+msgid "request"
+msgstr "Pedido"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea__order__2
+msgid "second Fortnight"
+msgstr "Segunda Quincena"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields.selection,name:l10n_ar_edi_caea.selection__l10n_ar_afipws_caea_log__event__start_caea
+msgid "start caea mode"
+msgstr "Terminar modo CAEA"
+
+#. module: l10n_ar_edi_caea
+#: model:ir.model.fields,field_description:l10n_ar_edi_caea.field_l10n_ar_afipws_caea__date_to
+msgid "to"
+msgstr "Hasta"

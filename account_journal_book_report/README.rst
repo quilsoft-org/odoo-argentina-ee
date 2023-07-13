@@ -14,9 +14,7 @@
 Reporte de Libro Diario Contable
 ================================
 
-Este módulo agrega la posibilidad de descargar un reporte en xls para el Libro Diario Contable con posibilidad de agrupar diarios en asientos resumen.
-
-Para lograr esta ultima funcionalidad, agrega en los diarios el campo Book Group para crear los distintos grupos para totalizar asientos contables por mes.
+Este módulo agrega el un reporte en xls para el Libro Diario Contable con posibilidad de agrupar diarios en asientos resumen.
 
 Installation
 ============
@@ -70,3 +68,9 @@ Maintainer
 This module is maintained by the |company|.
 
 To contribute to this module, please visit https://www.adhoc.com.ar.
+
+
+Change Log
+==========
+
+-2022-03-01 Fix

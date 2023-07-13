@@ -14,14 +14,6 @@
 Tax Settlements For Argentina
 =============================
 
-Este módulo imlementa:
-
-* archivos para declaración de distintos impuestos (principalmente percepciones y retenciones)
-* Funcionalidad y datos para auste por inflación (The index are extracted from https://www.facpce.org.ar/indices-facpce/)
-
-Archivos para declaración de impuestos
-======================================
-
 TODO: implementar sicore para percepciones, por ahora solo esta para retenciones (y de ganancias)
 Especificación de archivos:
 
@@ -37,17 +29,12 @@ Especificación de archivos:
 
 * AGIP: https://www.agip.gob.ar/filemanager/source/Agentes/DocTecnicoImpoOperacionesDise%C3%B1odeRegistro.pdf y https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/aplicativo-arciba/ag-rec-arciba-codigo-de-normas
 
-* MENDOZA https://www.atm.mendoza.gov.ar/portalatm/ModificarParametros?tipo=descargarUrl&url=/zoneBottom/serviciosDescargas/sarepe/files/SAREPE.pdf
+* MENDOZA https://www.atm.mendoza.gov.ar/portalatm/zoneBottom/serviciosDescargas/sarepe/files/SAREPE.pdf
 
-* DREI retenciones aplicadas:
-   Longitud total de 151 caracteres.
-   ** Estructura del archivo:
-   cuit (req): 11, razon_soc (req): 80, nro_certificado: 10, fecha_ret: 10 (formato "dd/mm/aaaa"), base_imp: 09.2, alicuota: 09.6, importe (req): 09.2
-   Los campos "base_imp","alicuota","importe" son  numéricos , deben completarse con ceros a la izquierda y tienen "." decimal.
+Inflation Adjustment
+--------------------
 
-* MISIONES: https://www.atm.misiones.gob.ar/index.php/guia-de-tramites/instructivos/category/53-agentes
-            Correo DGR: mesadeayuda@tsgroup.com.ar
-
+The index are extracted from https://www.facpce.org.ar/indices-facpce/ page
 
 Installation
 ============

@@ -18,26 +18,23 @@
 #
 ##############################################################################
 {
-    'name': 'Accounting Accountant UX',
-    'version': "16.0.1.1.0",
+    'name': 'Accounting Reports UX',
+    'version': '14.0.1.0.0',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA',
+    'author': 'ADHOC SA, QUILSOFT',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
     ],
     'depends': [
         'account_reports',
-        'account_followup',
-        'account_payment_group',
+        'account_payment_fix',
     ],
     'data': [
-        'views/res_partner_view.xml',
-        'views/account_followup_views.xml',
+        'views/account_financial_html_report_views.xml',
         'wizards/account_change_lock_date_views.xml',
-        'wizards/res_config_settings_views.xml',
         'data/account_accountant_data.xml',
     ],
     'demo': [

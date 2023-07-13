@@ -19,11 +19,11 @@
 ##############################################################################
 {
     'name': 'Accounting Reports Customized for Argentina',
-    'version': "16.0.1.0.0",
+    'version': '14.0.1.0.1',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA',
+    'author': 'ADHOC SA, QUILSOFT',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
@@ -31,12 +31,12 @@
     'depends': [
         'account_reports',
         'l10n_ar',
-        'l10n_latam_check',
+        'account_check',
     ],
     'data': [
+        'views/account_journal_dashboard_view.xml',
         'wizards/checks_to_date_view.xml',
-        'reports/report_checks_to_date.xml',
-        'security/ir.model.access.csv',
+        'security/ir.model.access.csv'
     ],
     'demo': [
     ],

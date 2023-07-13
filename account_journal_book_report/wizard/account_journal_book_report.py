@@ -3,47 +3,42 @@
 # For copyright and license notices, see __manifest__.py file in root directory
 ##############################################################################
 from odoo import api, fields, models
-from odoo.tools.misc import get_lang
 from dateutil.relativedelta import relativedelta
+from io import BytesIO
+buffer = BytesIO()
 
 
 class AccountJournalBookReport(models.TransientModel):
+    _inherit = "account.common.report"
     _name = "account.journal.book.report"
     _description = "Journal Book Report"
 
-    company_id = fields.Many2one(
-        'res.company',
-        string='Company',
-        required=True,
-        default=lambda self: self.env.company)
-
+    # este campo ya existe en la clase oficial, lo recreamos
+    # para cambiar la rel
     journal_ids = fields.Many2many(
-        comodel_name = 'account.journal',
-        relation = 'account_journal_book_journal_rel',
-        column1 = 'acc_journal_entries_id',
-        column2 = 'journal_id',
-        string='Journals',
+        'account.journal',
+        'account_journal_book_journal_rel',
+        'acc_journal_entries_id',
+        'journal_id',
+        'Journals',
         required=True,
-        default=lambda self: self.env['account.journal'].search([('company_id', '=', self.company_id.id)]),
-        domain="[('company_id', '=', company_id)]",
+        ondelete='cascade',
     )
     last_entry_number = fields.Integer(
-        string='Último nº de asiento',
+        string='Último número de asiento',
         required=True,
         default=0,
     )
     date_from = fields.Date(
-        string='Start Date',
         required=True,
     )
     date_to = fields.Date(
-        string='End Date',
         required=True,
     )
 
-    target_move = fields.Selection([('posted', 'All Posted Entries'),
-                                    ('all', 'All Entries'),
-                                    ], string='Target Moves', required=True, default='posted')
+    report_file = fields.Binary('Reporte')
+    file_name = fields.Char('File Name')
+    report_exported = fields.Boolean('Report File Exportado')
 
     @api.onchange('company_id')
     def _onchange_company_id(self):
@@ -53,7 +48,8 @@ class AccountJournalBookReport(models.TransientModel):
             self.date_from = dates['date_from']
             self.date_to = dates['date_to']
 
-    def _print_report(self, data):
+
+    def _print_report(self,data):
         date_from = fields.Date.from_string(self.date_from)
         date_to = fields.Date.from_string(self.date_to)
         periods = []
@@ -67,17 +63,6 @@ class AccountJournalBookReport(models.TransientModel):
                             fields.Date.to_string(dt_to)))
             # este va a se la date from del proximo
             dt_from = dt_to + relativedelta(days=1)
-        return self.env['ir.actions.report'].search(
-            [('report_name', '=', 'account_journal_book_report')], limit=1
-        ).with_context(
-            periods=periods,
-            last_entry_number=self.last_entry_number,
-        ).report_action(self)
-
-
-    def _retrive_moves_ids(self):
-        date_from = fields.Date.from_string(self.date_from)
-        date_to = fields.Date.from_string(self.date_to)
         domain = [('company_id', '=', self.company_id.id)]
         if self.target_move == 'posted':
             domain.append(('state', '=', 'posted'))
@@ -86,24 +71,62 @@ class AccountJournalBookReport(models.TransientModel):
         if self.date_to:
             domain.append(('date', '<=', self.date_to))
         moves = self.env['account.move'].search(domain)
-        return moves.ids
 
-    def _build_contexts(self, data):
-        result = {}
-        result['journal_ids'] = 'journal_ids' in data['form'] and data['form']['journal_ids'] or False
-        result['state'] = 'target_move' in data['form'] and data['form']['target_move'] or ''
-        result['date_from'] = data['form']['date_from'] or False
-        result['date_to'] = data['form']['date_to'] or False
-        result['strict_range'] = True if result['date_from'] else False
-        result['company_id'] = data['form']['company_id'][0] or False
-        return result
+        data = {
+            'last_entry_number': self.last_entry_number,
+            'periods': periods,
+            'moves': moves.ids
+        }
+        return self.env.ref('account_journal_book_report.action_account_journal_book_report_xlsx').\
+            report_action(self, data=data)
 
-    def check_report(self):
-        self.ensure_one()
-        data = {}
-        data['ids'] = self.env.context.get('active_ids', [])
-        data['model'] = self.env.context.get('active_model', 'ir.ui.menu')
-        data['form'] = self.read(['date_from', 'date_to', 'journal_ids', 'target_move', 'company_id'])[0]
-        used_context = self._build_contexts(data)
-        data['form']['used_context'] = dict(used_context, lang=get_lang(self.env).code)
-        return self.with_context(discard_logo_check=True)._print_report(data)
+
+class JournalBookReportXlsx(models.AbstractModel):
+    _name = "report.account_journal_book_report.journal_book_report_xslx"
+    _description = "Libro Diario"
+    _inherit = "report.report_xlsx.abstract"
+
+    def generate_xlsx_report(self,workbook,data,partners):
+        report_name = 'JournalReport'
+        sheet = workbook.add_worksheet(report_name)
+        format_header = workbook.add_format({'bold': True})
+        format_date = workbook.add_format({'num_format': 'dd/mm/yy'})
+        sheet.write(0, 3, 'Libro Diario',format_header)
+        sheet.write(4, 0, 'No',format_header)
+        sheet.write(4, 1, 'Fecha',format_header)
+        sheet.write(4, 2, 'Descripcion / Cuenta',format_header)
+        sheet.write(4, 4, 'Debe',format_header)
+        sheet.write(4, 5, 'Haber',format_header)
+
+        moves_ids = data.get('moves')
+        last_entry_number = data.get('last_entry_number')
+        periods_ids = data.get('periods')
+        initial_row = 5
+        num = 1 if last_entry_number == 0 else last_entry_number
+        for p in periods_ids:
+            for move in self.env['account.move'].search([('id', 'in', moves_ids), ('date', '>=', p[0]), ('date', '<=', p[1]), ('journal_id.book_group_id', '=', False)], order='date, id'):
+                sheet.write(initial_row, 0, num)
+                sheet.write(initial_row, 1, move.date, format_date)
+                sheet.write(initial_row, 1, move.date, format_date)
+                partner = move.partner_id.name if move.partner_id else ''
+                sheet.write(initial_row, 2, move.name + ' - ' + partner)
+                for line in move.line_ids.sorted(lambda x: x.credit):
+                    initial_row += 1
+                    sheet.write(initial_row, 2, line.account_id.code)
+                    sheet.write(initial_row, 3, line.account_id.name)
+                    sheet.write(initial_row, 4, line.debit)
+                    sheet.write(initial_row, 5, line.credit)
+                initial_row += 1
+                num += 1
+            for move_g in self.env['account.move.line'].search([('move_id', 'in', moves_ids), ('date', '>=', p[0]), ('date', '<=', p[1]), ('journal_id.book_group_id', '!=', False)]).mapped('journal_id.book_group_id'):
+                sheet.write(initial_row, 0, num)
+                sheet.write(initial_row, 1, p[1], format_date)
+                sheet.write(initial_row, 2, move_g.name)
+                for line_g in self.env['account.move.line'].read_group([('move_id', 'in', moves_ids), ('date', '>=', p[0]), ('date', '<=', p[1]), ('journal_id.book_group_id', '=', move_g.id), ('debit', '>', 0.0)], ['account_id', 'debit', 'credit'], ['account_id'], orderby='debit desc') + self.env['account.move.line'].read_group([('move_id', 'in', moves_ids), ('journal_id.book_group_id', '=', move_g.id), ('credit', '>', 0.0)], ['account_id', 'debit', 'credit'], ['account_id'], orderby='debit desc'):
+                    initial_row += 1
+                    sheet.write(initial_row, 2, self.env['account.account'].browse(line_g.get('account_id')[0]).code if line_g.get('account_id') else '')
+                    sheet.write(initial_row, 3, self.env['account.account'].browse(line_g.get('account_id')[0]).name if line_g.get('account_id') else '')
+                    sheet.write(initial_row, 4, line_g.get('debit'))
+                    sheet.write(initial_row, 5, line_g.get('credit'))
+                initial_row += 1
+                num += 1

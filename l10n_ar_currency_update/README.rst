@@ -28,8 +28,6 @@ The scheduled action that will be run to update the currency rates will be run
 after 21 hours (GMT-3), this is required since the rates are published by
 AFIP after 9 pm.
 
-The currency rates can be checked here: https://www.afip.gob.ar/aduana/cotizacionesMaria/
-
 Installation
 ============
 
@@ -48,8 +46,6 @@ To configure this module, you need to:
 
 Usage
 =====
-
-Este modulo permite la actualización automática del tipo de cambio de las monedas que esten activadas, tomando la información desde la pagina de AFIP, la cual coincide con la del banco nación, tipo de cambio DIVISA.
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot

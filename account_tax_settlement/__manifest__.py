@@ -1,12 +1,12 @@
 {
     'name': 'Tax Settlement',
-    'version': "16.0.1.1.0",
+    'version': '14.0.1.0.1',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA',
+    'author': 'ADHOC SA, QUILSOFT',
     'website': 'www.adhoc.com.ar',
-    'license': 'LGPL-3',
+    'license': 'AGPL-3',
     'images': [
     ],
     'depends': [
@@ -24,9 +24,8 @@
         'views/account_move_view.xml',
         'views/account_journal_view.xml',
         'views/account_journal_dashboard_view.xml',
-        'views/account_report_view.xml',
-        'security/ir.model.access.csv',
-        'data/account_report_data.xml',
+        'views/account_financial_html_report_line_view.xml',
+        'security/ir.model.access.csv'
     ],
     'demo': [
     ],

@@ -1,9 +1,9 @@
 {
     'name': 'Argentinian Electronic Invoicing UX',
-    'version': "16.0.1.1.1",
+    'version': "14.0.1.0.0",
     'category': 'Localization/Argentina',
     'sequence': 14,
-    'author': 'ADHOC SA',
+    'author': 'ADHOC SA, QUILSOFT',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'summary': '',
@@ -21,7 +21,7 @@
         'views/res_partner_view.xml',
         'views/account_move_view.xml',
         'views/account_journal_view.xml',
-        'security/ir.model.access.csv',
+        'security/ir.model.access.csv'
     ],
     'demo': [
         'demo/res_partner_demo.xml',
