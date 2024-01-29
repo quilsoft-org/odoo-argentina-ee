@@ -19,7 +19,7 @@
 ##############################################################################
 {
     'name': 'Argentinian Currency Rate Update',
-    'version': '14.0.1.0.0',
+    'version': '14.0.1.0.1',
     'category': 'Localization/Argentina',
     'sequence': 14,
     'author': 'ADHOC SA,Odoo Community Association (OCA), QUILSOFT',

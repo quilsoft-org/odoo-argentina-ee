@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 {
     'name': "Reporte de Libro Diario Contable",
-    'version': "14.0.2.0.0",
+    'version': "14.0.2.0.1",
     'author': "ADHOC SA, QUILSOFT",
     'website': "www.adhoc.com.ar",
     'category': "Localisation/Accounting",
