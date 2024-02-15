@@ -1,9 +1,7 @@
-import logging
-
-import zeep
-from odoo import _, fields, models
+from odoo import models, fields, _
 from odoo.exceptions import UserError
-
+import zeep
+import logging
 _logger = logging.getLogger(__name__)
 
 

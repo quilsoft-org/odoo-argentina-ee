@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import _, api, models
+from odoo import models, api, _
 
 
 class L10nArAfipwsConnection(models.Model):
@@ -20,7 +20,7 @@ class L10nArAfipwsConnection(models.Model):
 
         ws_data = {
             'ws_sr_constancia_inscripcion': {
-                'production': 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl',
-                'testing': 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?wsdl',
+                'production': 'https://aws.afip.gov.ar/sr-padron/webservices/personaServiceA5?WSDL',
+                'testing': 'https://awshomo.afip.gov.ar/sr-padron/webservices/personaServiceA5?WSDL',
         }}
         return ws_data.get(afip_ws, {}).get(environment_type)

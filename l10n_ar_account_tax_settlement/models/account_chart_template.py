@@ -11,7 +11,9 @@ class AccountChartTemplate(models.Model):
     _inherit = 'account.chart.template'
 
     def _create_bank_journals(self, company, acc_template_ref):
-        res = super()._create_bank_journals(company, acc_template_ref)
+        res = super(
+            AccountChartTemplate, self)._create_bank_journals(
+            company, acc_template_ref)
 
         if company.country_id != self.env.ref('base.ar'):
             return res
@@ -51,8 +53,10 @@ class AccountChartTemplate(models.Model):
         account_withholding_automatic = self.env['ir.module.module'].search([
             ('name', '=', 'account_withholding_automatic'),
             ('state', '=', 'installed')])
-        if not len(account_withholding_automatic):
-            return res
+        # por ahora, por mas que no tenga retenciones automaticas,
+        # creamos los daiarios de liquidacion ya que es mas facil desactivarlos
+        # que crearlos luego, y si es un ri lo mas probable es que deba
+        # tenerlos
 
         # estas para mono no van, para exento y ri si
         if chart in (ri_chart, ex_chart):
@@ -61,13 +65,15 @@ class AccountChartTemplate(models.Model):
                     # ref('l10n_ar_ux_reports.'
                     #     'account_financial_report_profits_position'),
                     ref('l10n_ar.partner_afip'),
+                    get_account('base_saldo_favor_ganancias'),
                     get_account('base_impuesto_ganancias_a_pagar'),
                     ref('l10n_ar_ux.tax_tag_a_cuenta_ganancias')),
                 # only if account_withholding_automatic installed we
                 # set sicore_aplicado for txt
                 ('Liquidación SICORE Aplicado', 'SICORE', 'allow_per_line',
-                    account_withholding_automatic and 'sicore_aplicado' or False,
+                    account_withholding_automatic and 'sicore_aplicado',
                     ref('l10n_ar.partner_afip'),
+                    get_account('ri_retencion_sicore_a_pagar'),
                     get_account('ri_retencion_sicore_a_pagar'),
                     ref('l10n_ar_ux.tag_ret_perc_sicore_aplicada')),
                 ('Liquidación IIBB Aplicado', 'IB_AP', 'allow_per_line',
@@ -75,27 +81,15 @@ class AccountChartTemplate(models.Model):
                     ref('l10n_ar.par_iibb_pagar'),
                     # TODO flatan crear estas cuentas!
                     get_account('ri_retencion_iibb_a_pagar'),
+                    get_account('ri_retencion_iibb_a_pagar'),
                     ref('l10n_ar_ux.tag_ret_perc_iibb_aplicada')),
             ]
 
-        #for name, code, type, tax, partner, account, tag in journals:
-        for journal in journals:
-            # Dejo esta funcion MENOS NINJA 
-            # porque da problemas en el unpack
-            # si falla aca solo no creara los diarios
-            if len(journal) < 7:
-                _logger.info("Skip creation of journal %s because we didn't found all values")
-                continue
-            name = journal[0]
-            code = journal[1]
-            type = journal[2]
-            tax = journal[3]
-            partner = journal[4]
-            account = journal[5]
-            tag = journal[6] 
-
-            if account:
-                _logger.info("Skip creation of journal %s because we didn't found default account")
+        # for name, code, tax, report, partner, credit_id, debit_id, tag \
+        for name, code, type, tax, partner, credit_id, debit_id, tag \
+                in journals:
+            if not credit_id or debit_id:
+                _logger.info("Skip creation of journal %s because we didn't found debit/credit account")
                 continue
             # journal_data.append({
             self.env['account.journal'].create({
@@ -106,7 +100,8 @@ class AccountChartTemplate(models.Model):
                 'settlement_tax': tax,
                 # 'settlement_financial_report_id': report and report.id,
                 'settlement_partner_id': partner and partner.id,
-                'default_account_id': account.id,
+                'default_credit_account_id': credit_id,
+                'default_debit_account_id': debit_id,
                 'company_id': company.id,
                 # al final hicimos otro dashboard
                 'show_on_dashboard': False,

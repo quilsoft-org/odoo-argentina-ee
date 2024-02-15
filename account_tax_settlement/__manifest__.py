@@ -1,10 +1,10 @@
 {
     'name': 'Tax Settlement',
-    'version': '14.0.1.0.2',
+    'version': '1.1.0',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA, QUILSOFT',
+    'author': 'ADHOC SA, elepe servicios SRL',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
@@ -17,6 +17,7 @@
         'account_payment_group',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'wizards/account_tax_settlement_wizard_view.xml',
         'wizards/get_dates_wizard_view.xml',
         'wizards/download_files_wizard.xml',
@@ -25,7 +26,6 @@
         'views/account_journal_view.xml',
         'views/account_journal_dashboard_view.xml',
         'views/account_financial_html_report_line_view.xml',
-        'security/ir.model.access.csv'
     ],
     'demo': [
     ],

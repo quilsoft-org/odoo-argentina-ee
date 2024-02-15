@@ -19,11 +19,11 @@
 ##############################################################################
 {
     'name': 'Accounting Reports UX',
-    'version': '14.0.1.0.1',
+    'version': '13.0.1.0.0',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA, QUILSOFT',
+    'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [

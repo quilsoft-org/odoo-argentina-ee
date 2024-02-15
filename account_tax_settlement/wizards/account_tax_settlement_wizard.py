@@ -61,9 +61,6 @@ class AccountTaxSettlementWizard(models.TransientModel):
 
         company_ids = self._context.get('context', {}).get('company_ids')
 
-
-        if not company_ids:
-            company_ids  =[self.env.user.company_id.id]
         if not company_ids or len(company_ids) != 1:
             raise ValidationError(_(
                 'La liquidación se debe realizar filtrando por 1 y solo 1 '

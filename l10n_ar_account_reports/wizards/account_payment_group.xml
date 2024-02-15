@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+
+    <record id="payment_csv_order_view_export_form" model="ir.ui.view">
+            <field name="name">account.to_date.export.csv.form</field>
+            <field name="model">account.payment.group.export</field>
+            <field name="arch" type="xml">
+                <form string="Exportar csv linea de pagos">
+                    <sheet>
+                        <group>
+                            <field name="csv_name" invisible="True"/>
+                            <field name="csv_file" filename="csv_name" attrs="{'invisible': [('csv_export_ejecutado', '=', False)]}"/>
+                            <field name="csv_export_ejecutado" invisible="True" />
+                            <!-- <group attrs="{'invisible': [('csv_export_ejecutado', '=', True)]}">
+
+                            </group> -->
+                            <div
+                            attrs="{'invisible': [('csv_export_ejecutado', '=', True)]}">
+                            ¿Desea crear registro de e-cheques en archivo csv?
+                            </div> 
+                        
+                            <!-- <t t-else="account_payment_group_export.csv_export_ejecutado === True">
+                                <br/>
+                            </t> -->
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Confirmar" name="csv_export" type="object" class="oe_highlight" attrs="{'invisible': [('csv_export_ejecutado', '=', True)]}"/>
+                        <button string="Cancelar" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+    </record>
+  
+    
+    <record id="action_export_csv_aplicativos_view_wizard" model="ir.actions.act_window">
+        <field name="name">CSV export payment</field>
+        <field name="res_model">account.payment.group.export</field>
+        <field name="binding_model_id" ref="model_account_payment_group_export"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="payment_csv_order_view_export_form"/>
+        <field name="target">new</field>
+    </record>
+
+        <!-- <menuitem id="menu_wizard_rent_books"
+            parent="account.menu_finance.menu_finance_payables"
+            action="action_export_csv_aplicativos_view_wizard"
+            sequence="20" />
+
+          
+        <menuitem id="payment_csv_export_wizard" name="CSV" parent="menu_finance.menu_finance_payables" action="action_export_csv_aplicativos_view_wizard" sequence="1"/> -->
+
+    
+    </data>
+</odoo>

@@ -19,11 +19,11 @@
 ##############################################################################
 {
     'name': 'Accounting Reports Customized for Argentina',
-    'version': '14.0.1.0.2',
+    'version': '1.0.1',
     'category': 'Accounting',
     'sequence': 14,
     'summary': '',
-    'author': 'ADHOC SA, QUILSOFT',
+    'author': 'ADHOC SA',
     'website': 'www.adhoc.com.ar',
     'license': 'AGPL-3',
     'images': [
@@ -32,11 +32,18 @@
         'account_reports',
         'l10n_ar',
         'account_check',
+        'account_payment_group',
+        # 'report_aeroo',  must use qweb not aeroo reports
     ],
     'data': [
+        "security/ir.model.access.csv",
+        "security/group_export_csv.xml",
         'views/account_journal_dashboard_view.xml',
-        'wizards/checks_to_date_view.xml',
-        'security/ir.model.access.csv'
+        "views/account_payment_group_form_inherit.xml",
+        "wizards/account_payment_group.xml",
+        # 'wizards/checks_to_date_view.xml',
+        # checks to date reports is using aeroo .. needs to be migrated to qweb
+        # 'reports/account_checks_to_date_report.xml',
     ],
     'demo': [
     ],

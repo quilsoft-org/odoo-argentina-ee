@@ -50,12 +50,6 @@ class AccountJournal(models.Model):
         'account.financial.html.report',
         'Informe de liquidación',
     )
-
-    sequence_id = fields.Many2one(
-        'ir.sequence',
-        'Secuencia de entrada',
-    )
-
     # lo hacemos con etiquetas ya que se puede resolver con datos en plan
     # de cuentas sin incorporar lógica
     # TODO, por ahora son solo con tags de impuestos pero podrimoas dejar
@@ -96,8 +90,8 @@ class AccountJournal(models.Model):
                         '"Partner de liquidación"'))
                 if not rec.default_account_id:
                     raise ValidationError(_(
-                        'Si usa "Impuesto de liquidación" debe definir la cuenta de '
-                        'contrapartida por defecto'))
+                        'Si usa "Impuesto de liquidación" debe setear la cuenta '
+                        'por default'))
 
     def action_create_payment(self):
         partner = self.settlement_partner_id
@@ -170,7 +164,9 @@ class AccountJournal(models.Model):
             raise ValidationError(_(
                 'Settlement only allowed on journals with Tax Settlement '
                 'enable'))
-
+        # if not self.journal_id.sequence_id:
+        #     raise ValidationError(
+        #         _('Please define a sequence on the journal.'))
         # queremos esta restriccion?
         if move_lines.filtered('tax_settlement_move_id'):
             raise ValidationError(_(
@@ -193,9 +189,6 @@ class AccountJournal(models.Model):
             [('id', 'in', move_lines.ids)])
         vals = self._get_tax_settlement_entry_vals(lines_vals)
         move = self.env['account.move'].create(vals)
-        move._set_next_sequence()
-        name = "%s/%04d/%02d/0000%s" % (move.journal_id.code, move.date.year, move.date.month,move.sequence_number)
-        move.name = name
         move_lines.write({'tax_settlement_move_id': move.id})
         return move
 
@@ -273,32 +266,21 @@ class AccountJournal(models.Model):
         # si el balance es distinto de cero agregamos cuenta contable
         if not self.company_id.currency_id.is_zero(balance):
             # check account payable
-
-            account = self.default_account_id
-
-            #hago esto en el caso especial de asiento de refundacion de ganancias
-
-            if 'context' in self._context:
-                if 'model' in self._context['context']:
-                    model = self._context['context']['model']
-                    id = self._context['context']['id']
-                if model =='account.financial.html.report':
-                    report = self.env[model].search([('id','=',id)])
-                    if report.get_xml_id().get(1) == 'account_reports.account_financial_report_profitandloss0':
-                        account = self.env['account.account'].search([('user_type_id', '=', self.env.ref('account.data_unaffected_earnings').id)])
-
-
-
             if balance >= 0.0:
                 debit = 0.0
                 credit = balance
+                account = self.default_debit_account_id
             else:
                 debit = -balance
                 credit = 0.0
+                account = self.default_credit_account_id
 
             if not account:
                 raise ValidationError(_(
-                    'Debe definir una cuenta del tipo "Ganancias del año actual"'))
+                    'Esta intentando crear un asiento automático desbalanceado'
+                    '. Es posible que haya un error en el informe o '
+                    'esté faltando configurar la cuenta de contrapartida en el'
+                    'diario.'))
             lines_vals.append({
                 'partner_id': self.settlement_partner_id.id,
                 'name': self.name,
@@ -312,8 +294,10 @@ class AccountJournal(models.Model):
         for vals in lines_vals:
             line_ids.append((0, False, vals))
 
+        name = self.sequence_id.next_by_id()
         move_vals = {
             'ref': self._context.get('entry_ref', self.name),
+            'name': name,
             'date': self._context.get('entry_date', fields.Date.today()),
             'journal_id': self.id,
             'company_id': self.company_id.id,

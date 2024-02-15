@@ -10,6 +10,8 @@ class AccountJournal(models.Model):
 
     def action_general_ledger(self):
         params = {}
-        if self.default_account_id:
-            params['id'] = self.default_account_id.id
-        return self.env['account.report'].open_general_ledger({}, params=params)
+        if self.default_debit_account_id and self.default_debit_account_id == \
+                self.default_credit_account_id:
+            params['id'] = self.default_credit_account_id.id
+        return self.env['account.report'].open_general_ledger(
+            {}, params=params)
