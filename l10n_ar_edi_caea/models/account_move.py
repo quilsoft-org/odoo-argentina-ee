@@ -24,7 +24,7 @@ class AccountMove(models.Model):
     )
 
     caea_id = fields.Many2one(
-        "afipws.caea",
+        "l10n_ar.afipws.caea",
         string="Caea",
         copy=False,
     )
