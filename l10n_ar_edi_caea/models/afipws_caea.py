@@ -163,11 +163,11 @@ class L10nArAfipwsCaea(models.Model):
 
     def _l10n_ar_do_afip_ws_request_caea(self, client, auth, transport, ws_method='FECAEASolicitar'):
         self.ensure_one()
-        try:
-            client.create_message(client.service, ws_method,
-                                  auth, Orden=self.order, Periodo=self.period)
-        except Exception as error:
-            raise UserError(repr(error))
+#        try:
+#            client.create_message(client.service, ws_method,
+#                                  auth, Orden=self.order, Periodo=self.period)
+#        except Exception as error:
+#            raise UserError(repr(error))
         response = client.service[ws_method](
             auth, Orden=self.order, Periodo=self.period)
         if response['Errors']:
