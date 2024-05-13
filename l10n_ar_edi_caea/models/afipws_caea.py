@@ -203,12 +203,12 @@ class L10nArAfipwsCaea(models.Model):
             for report_journal in no_invoices_journal_ids:
                 request_data = {
                     'PtoVta': report_journal.l10n_ar_afip_pos_number, 'CAEA': self.name}
-                try:
-                    client.create_message(client.service, ws_method,
-                                          auth, request_data
-                                          )
-                except Exception as error:
-                    raise UserError(repr(error))
+                # try:
+                #     client.create_message(client.service, ws_method,
+                #                           auth, request_data
+                #                           )
+                # except Exception as error:
+                #     raise UserError(repr(error))
 
                 response = client.service[ws_method](
                     auth, PtoVta=report_journal.l10n_ar_afip_pos_number, CAEA=self.name
@@ -285,8 +285,8 @@ class L10nArAfipwsCaea(models.Model):
                 events = ''
                 obs = ''
                 request_data = inv.wsfe_get_caea_request(self.name, client)
-                self._ws_verify_request_data(
-                    client, auth, ws_method, request_data)
+                # self._ws_verify_request_data(
+                #     client, auth, ws_method, request_data)
                 response = client.service[ws_method](auth, request_data)
                 if response.FeDetResp:
                     result = response.FeDetResp.FECAEADetResponse[0]
