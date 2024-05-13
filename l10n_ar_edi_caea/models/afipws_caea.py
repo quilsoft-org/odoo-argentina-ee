@@ -252,7 +252,7 @@ class L10nArAfipwsCaea(models.Model):
                 for pdv in response.ResultGet.PtoVenta:
                     if pdv.EmisionTipo.startswith('CAEA') and pdv.Bloqueado == 'N':
                         pos_numbers.append(int(pdv['Nro']))
-                if len(pos_numbers):                        
+                if len(pos_numbers):
                     journal_ids = self.env['account.journal'].search(
                             [('l10n_ar_afip_pos_number', 'in', pos_numbers)])
                 if len(journal_ids):
