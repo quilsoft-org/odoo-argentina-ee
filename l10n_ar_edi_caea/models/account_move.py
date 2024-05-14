@@ -88,9 +88,8 @@ class AccountMove(models.Model):
         self.ensure_one()
         res = {}
         related_inv = self._found_related_invoice()
-        if related_inv.journal_id.l10n_ar_afip_ws == 'CAEA':
+        if related_inv.l10n_ar_afip_auth_mode == 'CAEA':
             afip_ws = related_inv.company_id.get_caea_afip_ws()
-
             if not related_inv:
                 return res
 
